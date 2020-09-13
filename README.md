@@ -86,8 +86,8 @@ openid|||x|创建人ID
 modifyDate|||x|修改日期
 modifyOpenid|||x|修改人ID
 modifyUser|||x|修改人昵称
-isTop||false||是否置顶，true-置顶、false-不置顶
-isComplete||false||是否办结，true-办结、false-不办结
+isTop|boolean|false||是否置顶，true-置顶、false-不置顶
+isComplete|boolean|false||是否办结，true-办结、false-不办结
 
 <font color=#07c160>family_info(家庭信息)</font> ：
 属性|类型|默认值|必填|说明
@@ -102,6 +102,80 @@ modifyDate|||x|修改日期
 modifyOpenid|||x|修改人ID
 modifyTimestamp|||x|修改日期时间戳
 modifyUser|||x|修改人昵称
+
+<font color=#07c160>inviation_user(被邀请人)</font> ：
+属性|类型|默认值|必填|说明
+:-|:-|:-|:-|:-
+joinFamilyID||||家庭ID
+joinFamilyName|||x|家庭名称
+inviteeID||||被邀请人ID
+inviteeName||||被邀请人昵称
+inviterID||||邀请人ID
+inviterName||||邀请人昵称
+joinDate||||加入日期
+joinTimestamp||||加入日期时间戳
+code||||邀请码
+
+<font color=#07c160>invitation_code(邀请码)</font> ：
+属性|类型|默认值|必填|说明
+:-|:-|:-|:-|:-
+familyID||||家庭ID
+familyName|||x|家庭名称
+deadlineDays|number|1.0||邀请码有效期
+tag||||邀请码标签
+code||当前时间戳||邀请码
+createDate|||x|创建日期
+createDateTimestamp|||x|创建时间戳
+createUser|||x|创建人昵称
+modifyDate|||x|修改日期
+modifyOpenid|||x|修改人ID
+modifyTimestamp|||x|修改时间戳
+modifyUser|||x|修改人昵称
+
+<font color=#07c160>manage_member(家庭成员管理)</font> ：
+属性|类型|默认值|必填|说明
+:-|:-|:-|:-|:-
+familyID||||家庭ID
+familyName|||x|家庭名称
+xm||||姓名
+birth||||出生日期
+age||||周岁
+touxiang|||x|头像
+phone|||x|手机
+qq|||x|xQQ
+wx|||x|微信
+zw|||x|职位
+dw|||x|单位
+openid||||创建人ID
+nickName||||创建人昵称
+createDate||||创建日期
+
+<font color=#07c160>publish_matter(发布-事项)</font> ：
+属性|类型|默认值|必填|说明
+:-|:-|:-|:-|:-
+familyID||||家庭ID
+familyName|||x|家庭名称
+isTimeTask|boolean|false||是否定时任务
+isWait|boolean|false||是否待办
+isComplete|boolean|false||是否办结
+isTop|boolean|false||是否置顶
+isTopTime||||置顶时间
+completeTime||||办结时间
+completeUsearNickname||||办结人昵称
+time||||时间
+title||||标题
+matterDate||||事项日期
+createDate||||创建日期
+openid||||创建人ID
+nickName||||创建人昵称
+matterGradeIndex||||等级下标
+matterGradeName||||等级名称
+typeIndex||||类型下标
+typeName||||类型名称
+bz|||x|备注
+zxzIndex||||体检对象 / 主要执行者下标
+zxzName||||体检对象 / 主要执行者名称
+dd|||x|地点
 
 ### 文件结构
 
