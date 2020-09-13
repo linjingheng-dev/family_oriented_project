@@ -1,0 +1,68 @@
+<scroll-view scroll-y class="scrollPage">
+    <view class="UCenter-bg" style="background-image: url({{backgroundImg}})">
+        <view class='text-center'>
+            <view class="cu-avatar xl round solids" style="background-image:url({{userInfo.avatarUrl || touxiang}})"></view>
+            <view class="padding">{{userInfo.nickName}}</view>
+            <button wx:if="{{!isLogin}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-green shadow'>
+                授权登录
+            </button>
+        </view>
+        <image wx:if="{{isShowGif && isLogin}}" src="{{blGif}}" mode="scaleToFill" class="gif-wave"></image>
+    </view>
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/my/create_family/index?isCreate=0" hover-class="none">
+                <text class="cuIcon-friendfill text-red"></text>
+                <text class="text-grey">已加入的家庭</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/my/create_family/index?isCreate=1" hover-class="none">
+                <text class="cuIcon-homefill text-purple"></text>
+                <text class="text-grey">创建家庭</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/my/invitation_code/index" hover-class="none">
+                <text class="cuIcon-qr_code text-green"></text>
+                <text class="text-grey">生成邀请码</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/my/background/index?backgroundImg={{backgroundImg}}" hover-class="none">
+                <text class="cuIcon-circlefill text-orange"></text>
+                <text class="text-grey">我的背景墙</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
+            <navigator class="content" url="/pages/my/author_about/index" hover-class="none">
+                <text class="cuIcon-myfill text-cyan"></text>
+                <text class="text-grey">作者</text>
+            </navigator>
+        </view>
+        <view class="cu-item arrow">
+            <button class="cu-btn content" open-type="feedback">
+                <text class="cuIcon-writefill text-yellow"></text>
+                <text class="text-grey">产品建议或功能异常</text>
+            </button>
+        </view>
+    </view>
+    <view class="cu-tabbar-height"></view>
+</scroll-view>
+<!-- 分享邀请 -->
+<view class="cu-modal {{codeObj['isShowCode'] ? 'show' : ''}}">
+    <view class="cu-dialog" style="vertical-align: baseline;top: 25rpx;" catchtap>
+        <view class="cu-bar btn-group text-tip">{{codeObj['validity'] ? '加入 [' + codeObj['family'] + ']' : '当前邀请码过期，请联系管理人'}}</view>
+        <view class="input-money">
+            <input class="mgb15" placeholder="邀请码" name="showCode" value="{{codeObj['showCode']}}" type="number" disabled="true"></input>
+        </view>
+        <view class="cu-bar btn-group">
+            <button class="cu-btn text-green line-green shadow" data-flag="0" bind:tap="addActionFn">
+                取消
+            </button>
+            <button class="cu-btn bg-green shadow-blur {{!codeObj['validity'] ? 'dis-btn' : ''}}" disabled="{{!codeObj['validity']}}" data-flag="1" bind:tap="addActionFn">
+                确定
+            </button>
+        </view>
+    </view>
+</view>

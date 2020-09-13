@@ -1,0 +1,14 @@
+.add-text {
+    background-color: #39b54a;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 40rpx;
+    height: 40rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jC {
+    justify-content: flex-end !important;
+}

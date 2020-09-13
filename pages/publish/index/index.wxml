@@ -1,0 +1,6 @@
+<view class="cu-list grid col-3 {{gridBorder ? '' : 'no-border'}} mgt5">
+    <view class="cu-item" wx:for="{{iconList}}" wx:key="index" data-id="{{item.id}}" data-url="{{item.url}}" bind:tap="goTo">
+        <view class="cuIcon-{{item.icon}} text-{{item.color}}"></view>
+        <text>{{item.title}}</text>
+    </view>
+</view>

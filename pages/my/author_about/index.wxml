@@ -1,0 +1,20 @@
+<cu-custom bgColor="bg-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">作者</view>
+</cu-custom>
+<view class="section">
+    <view class="flex-wrp bg-green">
+        <view class="flex-item bc_green author-content">
+            <image class="author-img" src="{{authorImg}}" data-url="authorImg" bindtap="viewImage"/>
+            <view class="author-base-msg mgt15">秋城与星辰大海</view>
+        </view>
+    </view>
+    <view class="author-msg-content">
+        <view class="author-msg">
+            <article>
+                <view>秋城与星辰大海，本名林景恒，通信工程专业，广东汕尾陆丰人，现在广州进行前端开发工作。<text>18年10月正式参加工作至今</text>，已有些小年头。</view>
+                <view class="mgt15">本人目前对前端技术也有一定的积累，也有自己的一些个人心得体会。前端项目的搭建到容器化部署再到持续化集成有一定的实践经验，前端开发这个职位，对我来说，是一种<text>自信</text>，也是一种<text>快乐</text>，从需求确定到最终落地产品的这个过程，除了技术外它让我提高了很多，比如，<text>与人沟通交流</text>、<text>项目管理</text>、<text>解决突发问题的能力</text>、<text>担当</text>等等很多很多的软技能，这些软技能给到我的是一种自信！几乎每一个人对成功所带来的喜悦是抵触不了的，成功能让我们每一个人为了下一次的成功继续奋斗，继续前行，编程也是一样的，从最初拿到原型页面到做出页面，再到上线的这个过程，何尝不是一种成功呢？它给予了我在工作上的快乐，我喜欢做各种各样的页面，持续优化页面的性能与用户体验，再到<text>工程化体系</text>的建立，我享受这个过程，享受这个过程给我带来的<text>不断学习</text>与<text>开阔视野</text>，享受黑屏下五颜六色的字母在“飞”的感觉，这些体会给到我的是一种快乐！</view>
+            </article>
+        </view>
+    </view>
+</view>

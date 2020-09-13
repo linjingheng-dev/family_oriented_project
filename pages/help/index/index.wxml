@@ -1,0 +1,89 @@
+<view class="fiexe-s cu-bar bg-white search fixed" style="top: {{CustomBar}}px;width: 100%;">
+    <view>
+        <scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
+            <view wx:for="{{homeTab}}" wx:key="index" class="cu-item {{item['isCheck'] ? 'text-green cur' : ''}}" bindtap="tabSelect" data-id="{{item['id']}}">
+                <text class="cuIcon-{{item['icon']}}"></text>
+                {{item['title']}}
+            </view>
+        </scroll-view>
+    </view>
+</view>
+<!-- 搜索条件 -->
+<view class="fiexe-s cu-bar bg-white search fixed {{showList.length > 0 ? 'border-bottom' : ''}}" style="top: calc({{CustomBar}}px + 100rpx);width: 100%;">
+    <view class="date-s">
+        <view class="picker_group">
+            <picker class="picker-s" mode="date" value="{{startDate}}" data-type="0" bindchange="selectDateFn">
+                <view class="picker">{{startDate}}</view>
+            </picker>
+            <text class="mgl15">至</text>
+            <picker class="picker-e" mode="date" value="{{endDate}}" start="{{startDate}}" data-type="1" bindchange="selectDateFn">
+                <view class="picker">{{endDate}}</view>
+            </picker>
+            <button class="cu-btn bg-green shadow-blur" data-type="2" bind:tap="selectDateFn">
+                查询
+            </button>
+            <button wx:if="{{currentTab === 1}}" class="cu-btn bg-blue shadow-blur" data-type="3" bind:tap="selectDateFn">
+                导出
+            </button>
+        </view>
+    </view>
+</view>
+<view wx:if="{{!showList || !showList.length}}" class="no-data text-gray" style="height:{{windowHeight}}px;margin-top: calc({{CustomBar}}px + 50rpx)">
+    {{noData}}
+</view>
+<scroll-view wx:if="{{showList && showList.length}}" scroll-y="{{isScroll}}" style="height:{{windowHeight}}px;margin-top: calc({{CustomBar}}px + 50rpx)">
+    <view class="cu-list menu card-menu margin-bottom-xl mgrl00 shadow-lg radius">
+        <view wx:for="{{showList}}" wx:key="index" class="order-item title-content {{index < (showList.length - 1) ? 'border-bottom' : ''}}" data-data="{{item}}" data-index='{{index}}' bindtouchstart="touchStart" bindtouchend="touchEnd" bindtouchmove="drawMove" style="right:{{item.right}}rpx">
+            <view class="pd030 pdr0" style="width: 100%;" data-data="{{item}}" data-index='{{index}}' bindlongtap="deleteFn" bindtap="editFn">
+                <view class="flex align-center">
+                    <view class="radius w90">
+                        <view class="title-s {{item['titleColor']}}">{{item['title_C']}}</view>
+                        <view class="text-gray text-sm">{{item['smallText']}}</view>
+                        <view class="text-gray text-sm">
+                            <label wx:for="{{item['tabList']}}" wx:key="index1" wx:for-item="childItem" class="padding-xs cu-tag bg-{{childItem['color']}} light">
+                                {{childItem['name']}}
+                            </label>
+                        </view>
+                    </view>
+                    <view class="padding-sm margin-xs radius w10">
+                        <text class="cuIcon-right text-w"></text>
+                    </view>
+                </view>
+            </view>
+            <view class="remove">
+                <view class="bg-{{item['isTop'] ? 'gray' : 'green'}} btn-w text-{{item['isTop'] ? 'black' : 'white'}}" data-data="{{item}}" data-key="0" bindtap="btnAction">
+                    {{ item['isTop'] ? '取消置顶' : '置顶'}}
+                </view>
+                <view class="bg-pink btn-w text-white" data-data="{{item}}" data-key="1" bindtap="btnAction">
+                    {{currentTab === 0 ? '赞助' : '帮衬'}}
+                </view>
+                <view class="bg-blue btn-w text-white" data-data="{{item}}" data-key="2" bindtap="btnAction">
+                    办结
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="cu-tabbar-height"></view>
+</scroll-view>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>
+<!-- 金额填写 -->
+<view class="cu-modal {{isShowMoney ? 'show' : ''}}">
+    <view class="cu-dialog" catchtap>
+        <view class="cu-bar btn-group text-tip">[注]：赞助后的记录不会被删除</view>
+        <view class="input-money">
+            <input placeholder="请输入{{currentTab === 0 ? '赞助' : '帮衬'}}金额" name="helpMoney" value="{{helpMoney}}" type="number" bindinput="bankInput"></input>
+        </view>
+        <view class="cu-bar btn-group">
+            <button class="cu-btn text-green line-green shadow" data-flag="0" bind:tap="helpModalFn">
+                取消
+            </button>
+            <button class="cu-btn bg-green shadow-blur {{!helpMoney ? 'dis-btn' : ''}}" data-flag="1" bind:tap="helpModalFn" disabled="{{!helpMoney}}">
+                {{currentTab === 0 ? '赞助' : '帮衬'}}
+            </button>
+        </view>
+    </view>
+</view>

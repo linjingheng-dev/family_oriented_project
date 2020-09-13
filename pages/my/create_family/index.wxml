@@ -1,0 +1,55 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">{{!isSelect ? '返回' : '取消'}}</view>
+    <view slot="content">{{!isSelect ? '家庭信息' : '选择家庭'}}</view>
+</cu-custom>
+<scroll-view wx:if="{{familyList && familyList.length}}" scroll-y="{{isScroll}}">
+    <view class="cu-list menu card-menu margin-bottom-xl mgrl00 shadow-lg radius">
+        <view wx:for="{{familyList}}" wx:key="index" class="order-item title-content {{index < (familyList.length - 1) ? 'border-bottom' : ''}}" data-data="{{item}}" data-index='{{index}}' style="right:{{item.right}}rpx" bindtouchstart="touchStart" bindtouchend="touchEnd">
+            <view class="pd030 pdr0" style="width: 100%;" data-data="{{item}}" data-index='{{index}}' bindtap="editFn">
+                <view class="flex align-center">
+                    <view class="radius w100">
+                        <view class="title-s">家庭名称：{{item['name']}}</view>
+                        <view class="text-gray text-sm">
+                            {{item['desc']}}
+                            <label wx:if="{{isCreate === '0'}}" class="padding-xs cu-tag bg-{{item['joinFamilyID'] === currentFamilyID ? 'green' : 'orange'}} light">
+                                {{item['joinFamilyID'] === currentFamilyID ? '当前所在家庭' : '已加入家庭'}}
+                            </label>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="cu-tabbar-height"></view>
+</scroll-view>
+<view wx:if="{{!familyList || !familyList.length}}" class="no-data text-gray">
+    {{isCreate === '1' ? '创建一个家庭吧' : '您还没加入任何一个家庭'}}^_^……
+</view>
+<view wx:if="{{!isSelect && isCreate === '1'}}" class="add-btn-s" style="left: {{screenWidth - 60}}px;top: {{screenHeight - 80}}px;" bind:tap="addFamilyFn">
+    <text class="cuIcon-add"></text>
+</view>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>
+<!-- 创建家庭 -->
+<view class="cu-modal {{creatObj['isShow'] ? 'show' : ''}}">
+    <view class="cu-dialog" style="vertical-align: baseline;" catchtap>
+        <view class="cu-bar btn-group text-tip">[注]：家庭名称最长为六个字符</view>
+        <view class="input-money">
+            <input class="mgb15" placeholder="家庭名称" name="name" value="{{creatObj['name']}}" type="text" data-obj="creatObj" data-type="name" bindinput="inputFn"></input>
+            <text wx:if="{{creatObj['isError']}}" class="text-sm text-red">
+                {{creatObj['errorText']}}
+            </text>
+        </view>
+        <view class="cu-bar btn-group">
+            <button class="cu-btn text-green line-green shadow" data-flag="0" bind:tap="addActionFn">
+                取消
+            </button>
+            <button class="cu-btn bg-green shadow-blur {{creatObj['isError'] ? 'dis-btn' : ''}}" disabled="{{creatObj['isError']}}" data-flag="1" bind:tap="addActionFn">
+                确定
+            </button>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,152 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">{{!isEdit && !isDetail ? '新增房租信息' : (isDetail ? '房租详情' : '编辑房租信息')}}</view>
+</cu-custom>
+<!-- 填写、编辑、详情 表单 -->
+<form wx:if="{{!isSearch}}" catchsubmit="submit" catchreset="reset">
+    <view class="text-tip-s">收费信息 (合计：{{rentObj['totalMoney']}})</view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            房间号
+        </view>
+        <picker wx:if="{{!isDetail}}" data-type="roomIndex" value="{{rentObj['roomIndex']}}" range="{{roomList}}" bindchange="changeRoomFn">
+            <view class="picker {{rentObj['roomIndex'] ? '' : 'picker-color'}}">
+                {{rentObj['roomIndex'] ? roomList[rentObj['roomIndex']] : '请选择房间号'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="房间号" value="{{rentObj['roomIndex'] ? roomList[rentObj['roomIndex']] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            收租日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{rentObj['getRentMoneyDate']}}" data-type="getRentMoneyDate" bindchange="selectFn">
+            <view class="picker {{rentObj['getRentMoneyDate'] ? '' : 'picker-color'}}">
+                {{rentObj['getRentMoneyDate'] ? rentObj['getRentMoneyDate'] : '收租日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="收租日期" value="{{rentObj['getRentMoneyDate'] ? rentObj['getRentMoneyDate'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group bt1">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            租金
+        </view>
+        <input placeholder="租金" name="rentMoney" value="{{rentObj['rentMoney']}}" class="text-r" type="digit" disabled="true"></input>
+    </view>
+    <view wx:for="{{rentObj['detailList']}}" wx:key="index" class="{{rentObj['detailList'].length > 1 ? 'bt1' : ''}}">
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                {{item['label']}}
+            </view>
+            <input placeholder="上一次使用" name="prev{{index}}" value="{{item['prev']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+            <text>|</text>
+            <input placeholder="最新一次使用" name="newest{{index}}" value="{{item['newest']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+        </view>
+    </view>
+    <view class="text-tip-s">其他信息</view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            是否交租
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="isTaxes" value="{{rentObj['isTaxes']}}" range="{{yesOrNoRentList}}">
+            <view class="picker">{{yesOrNoRentList[rentObj['isTaxes']]}}</view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="是否交租" value="{{yesOrNoRentList[rentObj['isTaxes']]}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <!-- <view class="cu-form-group {{thingList.length ? 'bt1' : ''}}">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            是否有人为损坏物件
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="isArtificialBreakIndex" value="{{rentObj['isArtificialBreakIndex']}}" range="{{artificialBreakIndexList}}">
+            <view class="picker">
+                {{artificialBreakIndexList[rentObj['isArtificialBreakIndex']]}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="是否人为损坏物件" value="{{artificialBreakIndexList[rentObj['isArtificialBreakIndex']]}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view> -->
+    <!-- 人为破坏物件 -->
+    <!-- <view wx:if="{{thingList.length && rentObj['isArtificialBreakIndex'] === 1}}" wx:for="{{thingList}}" wx:key="index" class="{{thingList.length > 1 ? 'bt1' : ''}}">
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                [{{item['label']}}] 赔偿价
+            </view>
+            <input placeholder="赔偿金额" name="break{{index}}" value="{{item['editValue']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+        </view>
+    </view> -->
+    <view class="cu-form-group align-start margin-top">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            备注
+        </view>
+        <textarea maxlength="-1" class="text-r" name="getMoneyRemark" value="{{rentObj['getMoneyRemark']}}" placeholder=""></textarea>
+    </view>
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">
+            重置
+        </button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" disabled="{{isDisBtn}}" formType="submit">
+            保存
+        </button>
+    </view>
+</form>
+<!-- 搜索表单 -->
+<form wx:if="{{isSearch}}" catchsubmit="searchSubmit" catchreset="searchReset">
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            起始日期
+        </view>
+        <picker mode="date" value="{{searchObj['searchSDate']}}" data-type="searchSDate" bindchange="selectFn">
+            <view class="picker {{searchObj['searchSDate'] ? '' : 'picker-color'}}">
+                {{searchObj['searchSDate'] ? searchObj['searchSDate'] : '起始日期'}}
+            </view>
+        </picker>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            截止日期
+        </view>
+        <picker mode="date" value="{{searchObj['searchEDate']}}" data-type="searchEDate" bindchange="selectFn">
+            <view class="picker {{searchObj['searchEDate'] ? '' : 'picker-color'}}">
+                {{searchObj['searchEDate'] ? searchObj['searchEDate'] : '截止日期'}}
+            </view>
+        </picker>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            是否交租
+        </view>
+        <picker bindchange="selectFn" data-type="isTaxes" value="{{searchObj['isTaxes']}}" range="{{yesOrNoRentList}}">
+            <view class="picker">{{yesOrNoRentList[searchObj['isTaxes']]}}</view>
+        </picker>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            房间号
+        </view>
+        <picker data-type="roomIndex" value="{{searchObj['roomIndex']}}" range="{{roomList}}" bindchange="selectFn">
+            <view class="picker {{searchObj['roomIndex'] ? '' : 'picker-color'}}">
+                {{searchObj['roomIndex'] ? roomList[searchObj['roomIndex']] : '请选择房间号'}}
+            </view>
+        </picker>
+    </view>
+    <view class="cu-bar btn-group">
+        <button class="cu-btn text-green line-green shadow" formType="reset">取消</button>
+        <button class="cu-btn bg-green shadow-blur" formType="submit">搜索</button>
+    </view>
+</form>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

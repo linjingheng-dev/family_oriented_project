@@ -1,0 +1,21 @@
+<!-- 导航 -->
+<cu-custom bgColor="bg-gradual-green">
+    <view slot="content">{{headTitle}}</view>
+</cu-custom>
+<!-- 登录 -->
+<view class="margin-xl padding-xl bg-white radius shadow shadow-lg gif-bk" style="background-image: url({{loginGif}})">
+    <view class="text-left padding mgb20">
+        欢迎使用 {{headTitle}} 小程序，为了更好的用户体验，请先授权登录！
+    </view>
+    <view class="flex justify-center">
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='cu-btn round bg-green shadow'>
+            授权登录
+        </button>
+        <block wx:else>
+            <view class='text-center'>
+                <view class="cu-avatar xl round solids" style="background-image:url({{userInfo.avatarUrl}})"></view>
+                <view class="padding">{{userInfo.nickName}}</view>
+            </view>
+        </block>
+    </view>
+</view>

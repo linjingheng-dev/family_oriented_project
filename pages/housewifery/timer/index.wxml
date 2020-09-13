@@ -1,0 +1,122 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">定时设置</view>
+</cu-custom>
+<!-- 任务执行的历史记录 -->
+<form catchsubmit="commitForm" catchreset="resetForm">
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            任务名称
+        </view>
+        <input placeholder="任务名称" value="{{formData['title']}}" class="text-r" type="text" disabled="true"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            任务简称
+        </view>
+        <input placeholder="任务简称" value="{{formData['shortName']}}" class="text-r" type="text" disabled="{{isDetail}}" data-type="0" data-obj="formData" data-name="shortName" bindinput="inputFn"></input>
+    </view>
+    <view wx:if="{{formData['sycczr']}}" class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            上一次操作人
+        </view>
+        <input placeholder="上一次操作人" value="{{formData['sycczr']}}" class="text-r" type="text" disabled="true"></input>
+    </view>
+    <view wx:if="{{formData['sycczsj']}}" class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            上一次操作日期
+        </view>
+        <input placeholder="上一次操作日期" value="{{formData['sycczsj']}}" class="text-r" type="text" disabled="true"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            是否取消
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="yesOrNo" value="{{formData['yesOrNo']}}" range="{{yesAndCancelList}}" range-key="label">
+            <view class="picker">
+                {{yesAndCancelList[formData['yesOrNo']]['label']}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="是否取消" value="{{yesAndCancelList[formData['yesOrNo']]['label']}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group" wx:if="{{!formData['yesOrNo'] && formData['cycle'] !== 0}}">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            开始日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{formData['sDate']}}" start="{{startDate}}" data-type="sDate" bindchange="selectFn">
+            <view class="picker {{formData['sDate'] ? '' : 'picker-color'}}">
+                {{formData['sDate'] ? formData['sDate'] : '请选择开始日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="开始日期" value="{{formData['sDate'] ? formData['sDate'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group" wx:if="{{!formData['yesOrNo'] && formData['cycle'] !== 0}}">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            开始时间
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="time" value="{{formData['sTime']}}" start="{{startTime}}" data-type="sTime" bindchange="selectFn">
+            <view class="picker {{formData['sTime'] ? '' : 'picker-color'}}">
+                {{formData['sTime'] ? formData['sTime'] : '请选择开始时间'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="开始时间" value="{{formData['sTime'] ? formData['sTime'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group" wx:if="{{!formData['yesOrNo']}}">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            {{formData['cycle'] === 0 ? '触发日期' : '结束日期'}}
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{formData['eDate']}}" start="{{startDate}}" data-type="eDate" bindchange="selectFn">
+            <view class="picker {{formData['eDate'] ? '' : 'picker-color'}}">
+                {{formData['eDate'] ? formData['eDate'] : '请选择结' + (formData['cycle'] === 0 ? '触发日期' : '结束日期')}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="{{formData['cycle'] === 0 ? '触发日期' : '结束日期'}}" value="{{formData['eDate'] ? formData['eDate'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group" wx:if="{{!formData['yesOrNo']}}">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            {{formData['cycle'] === 0 ? '触发时间' : '结束时间'}}
+        </view>
+        <picker wx:if="{{!isDetail}}"mode="time" value="{{eTime}}" data-type="eTime" bindchange="selectFn">
+            <view class="picker {{formData['eTime'] ? '' : 'picker-color'}}">
+                {{formData['eTime'] ? formData['eTime'] : '请选择' + (formData['cycle'] === 0 ? '触发时间' : '结束时间')}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="{{formData['cycle'] === 0 ? '触发时间' : '结束时间'}}" value="{{formData['eTime'] ? formData['eTime'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <!-- <view class="cu-form-group" wx:if="{{!formData['yesOrNo']}}">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            周期
+        </view>
+        <picker bindchange="selectFn" data-type="cycle" value="{{formData['cycle']}}" range="{{cycleList}}" range-key="label">
+            <view class="picker">
+                {{cycleList[formData['cycle']]['label']}}
+            </view>
+        </picker>
+    </view> -->
+    <view wx:if="{{!formData['yesOrNo']}}" class="cu-form-group align-start">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            备注
+        </view>
+        <textarea maxlength="-1" class="text-r" name="remark" value="{{formData['remark']}}" placeholder="备注信息……"></textarea>
+    </view>
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">重置</button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">保存</button>
+    </view>
+</form>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

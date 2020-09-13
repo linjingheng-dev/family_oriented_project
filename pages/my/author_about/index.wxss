@@ -1,0 +1,56 @@
+@import "./../../../styles/weui.wxss";
+
+.section {
+    padding: 0px;
+}
+
+.mgt15 {
+    margin-top: 15rpx;
+}
+
+.flex-wrp {
+    display: flex;
+    width: 100%;
+    height: 470rpx;
+    flex-direction: column;
+    border-radius: 0 0 50rpx 50rpx;
+}
+
+.author-content {
+    text-align: center;
+}
+
+.author-img {
+    margin-top: 90rpx;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.author-base-msg {
+    color: #ffffff;
+}
+
+.author-msg-content {
+    display: flex;
+    justify-content: center;
+}
+
+.author-msg {
+    padding: 10rpx;
+    position: absolute;
+    margin-bottom: 40rpx;
+    top: 535rpx;
+    width: 90%;
+    background: #ffffff;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+.author-msg view {
+    text-indent: 2em;
+}
+
+.author-msg text {
+    font-weight: bolder;
+}

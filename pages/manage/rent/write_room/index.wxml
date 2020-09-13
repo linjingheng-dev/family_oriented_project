@@ -1,0 +1,89 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">{{!isEdit && !isDetail ? '新增房间信息' : (isDetail ? '房间详情' : '编辑房间信息')}}</view>
+</cu-custom>
+<!-- 表单填写 -->
+<form catchsubmit="submit" catchreset="reset">
+    <view class="text-tip-s">基本信息</view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            房间号
+        </view>
+        <input placeholder="房间号" name="roomNum" value="{{roomObj['roomNum']}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            几人间
+        </view>
+        <input placeholder="几人间" name="peopleNum" value="{{roomObj['peopleNum']}}" class="text-r" type="number" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            是否空闲
+        </view>
+        <picker wx:if="{{!isDetail && !isDisSelect}}" data-obj="roomObj" data-type="isRentIndex" value="{{roomObj['isRentIndex']}}" range="{{yesNoList}}" bindchange="selectFn">
+            <view class="picker {{roomObj['isRentIndex'] ? '' : 'picker-color'}}">
+                {{roomObj['isRentIndex'] ? yesNoList[roomObj['isRentIndex']] : '是否空闲'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail || isDisSelect}}" placeholder="是否空闲" value="{{roomObj['isRentIndex'] ? yesNoList[roomObj['isRentIndex']] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="text-tip-s">
+        <view>房间物件信息</view>
+        <view wx:if="{{!isDetail}}" class="add-text">
+            <text class="cuIcon-add" bind:tap="addDetail"></text>
+        </view>
+    </view>
+    <!-- 明细 start -->
+    <view wx:for="{{roomObj['detailList']}}" wx:key="index" class="bt1">
+        <view class="cu-form-group">
+            <view class="title">
+                <text wx:if="{{!isDetail}}" class="cuIcon-roundclosefill text-red" data-index="{{index}}" bind:tap="delDetail"></text>
+                <text class="text-white mr2">*</text>
+                {{item['label']}}
+            </view>
+            <input placeholder="金额" name="detail{{index}}" value="{{item['value']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+            <text>|</text>
+            <input placeholder="数量" name="num{{index}}" value="{{item['num']}}" class="text-r" type="number" disabled="{{isDetail}}"></input>
+        </view>
+    </view>
+    <view class="cu-form-group align-start margin-top">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            备注
+        </view>
+        <textarea maxlength="-1" class="text-r" name="remark" value="{{roomObj['remark']}}" placeholder=""></textarea>
+    </view>
+    <!-- 明细 end -->
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">重置</button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">保存</button>
+    </view>
+</form>
+<!-- 明细填写 -->
+<view class="cu-modal {{isShowDetail ? 'show' : ''}}">
+    <view class="cu-dialog" style="vertical-align: baseline;" catchtap>
+        <view class="cu-bar btn-group text-tip">[注]：输入的文字必须在15个字符之内</view>
+        <view class="input-money">
+            <input class="mgb15" placeholder="请输入明细标签" name="detailTab" value="{{detailObj['detailTab']}}" type="text" data-type="detailTab" bindinput="inputFn"></input>
+            <input class="mgb15" placeholder="金额" name="money" value="{{detailObj['money']}}" type="number" data-type="money" bindinput="inputFn"></input>
+            <input placeholder="数量" name="num" value="{{detailObj['num']}}" type="number" data-type="num" bindinput="inputFn"></input>
+        </view>
+        <view class="cu-bar btn-group">
+            <button class="cu-btn text-green line-green shadow" data-flag="0" bind:tap="addAcyionFn">
+                取消
+            </button>
+            <button class="cu-btn bg-green shadow-blur {{disBtn ? 'dis-btn' : ''}}" disabled="{{disBtn}}" data-flag="1" bind:tap="addAcyionFn">
+                确定
+            </button>
+        </view>
+    </view>
+</view>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

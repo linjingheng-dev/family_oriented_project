@@ -1,0 +1,8 @@
+.gif-bk {
+    background-repeat: no-repeat;
+    height: 495rpx;
+    background-position: 50% 50%;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bolder;
+}

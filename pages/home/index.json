@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "housewifery": "./../housewifery/index",
+    "help": "./../help/index",
+    "publish": "./../publish/index",
+    "manage": "./../manage/index",
+    "my": "./../my/index"
+  }
+}

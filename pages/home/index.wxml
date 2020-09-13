@@ -1,0 +1,35 @@
+<!-- 导航 -->
+<cu-custom wx:if="{{currentPage !== 'my'}}" bgColor="bg-gradual-green">
+  <view slot="content">{{headTitle}}</view>
+</cu-custom>
+
+<!-- 内容 -->
+<housewifery wx:if="{{currentPage === 'housewifery'}}"></housewifery>
+<help wx:if="{{currentPage === 'help'}}"></help>
+<publish wx:if="{{currentPage === 'publish'}}"></publish>
+<manage wx:if="{{currentPage === 'manage'}}"></manage>
+<my id="my" wx:if="{{currentPage === 'my'}}"></my>
+
+<!-- 底部导航栏 -->
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action {{currentPage === 'housewifery' ? 'text-blue' : 'text-gray'}}" bindtap="NavChange" data-cur="housewifery">
+    <view class="cuIcon-homefill"></view>
+    首页
+  </view>
+  <view class="action {{currentPage === 'help' ? 'text-green' : 'text-gray'}}" bindtap="NavChange" data-cur="help">
+    <view class="cuIcon-friendfill"></view>
+    帮衬
+  </view>
+  <view class="action {{currentPage === 'publish' ? 'text-pink' : 'text-gray'}} add-action" bindtap="NavChange" data-cur="publish">
+    <button class="cu-btn cuIcon-add {{currentPage === 'publish' ? 'bg-pink' : 'bg-gray'}} shadow"></button>
+    发布
+  </view>
+  <view class="action {{currentPage === 'manage' ? 'text-orange' : 'text-gray'}}" bindtap="NavChange" data-cur="manage">
+    <view class="cuIcon-formfill"></view>
+    管理
+  </view>
+  <view class="action {{currentPage === 'my' ? 'text-cyan' : 'text-gray'}}" bindtap="NavChange" data-cur="my">
+    <view class="cuIcon-myfill"></view>
+    我的
+  </view>
+</view>

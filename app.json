@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/housewifery/index/index",
+    "pages/manage/index/index",
+    "pages/my/index/index",
+    "pages/help/index/index",
+    "pages/publish/index/index",
+    "pages/my/background/index",
+    "pages/publish/sponsor/index",
+    "pages/publish/bill/index",
+    "pages/publish/physical_examination/index",
+    "pages/manage/member/index",
+    "pages/publish/matter/index",
+    "pages/publish/purchase/index",
+    "pages/housewifery/timer/index",
+    "pages/publish/timer_task/index",
+    "pages/manage/rent/home/index",
+    "pages/manage/rent/add_edit_detail_renter/index",
+    "pages/manage/rent/rent_money/index",
+    "pages/manage/rent/write_room/index",
+    "pages/my/invitation_code/index",
+    "pages/my/create_family/index",
+    "pages/my/author_about/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "顾家",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
+  "sitemapLocation": "sitemap.json"
+}

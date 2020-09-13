@@ -1,0 +1,9 @@
+{
+    "triggers": [
+        {
+            "name": "matterSubscribe",
+            "type": "timer",
+            "config": "0 */1 * * * * *"
+        }
+    ]
+}

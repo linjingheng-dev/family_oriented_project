@@ -1,0 +1,135 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">采购填写</view>
+</cu-custom>
+<form catchsubmit="submit" catchreset="reset">
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            标题
+        </view>
+        <input placeholder="请输入标题" name="title" value="{{title}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            类型
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="type" value="{{typeIndex}}" range="{{purchaseType}}">
+            <view class="picker {{typeIndex ? '' : 'picker-color'}}">
+                {{typeIndex ? purchaseType[typeIndex] : '请选择类型'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="类型" value="{{typeIndex ? purchaseType[typeIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{cgDate}}" data-type="date" bindchange="selectFn">
+            <view class="picker {{cgDate ? '' : 'picker-color'}}">
+                {{cgDate ? cgDate : '请选择日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="日期" value="{{cgDate ? cgDate : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            时间
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="time" value="{{time}}" data-type="time" bindchange="selectFn">
+			<view class="picker {{time ? '' : 'picker-color'}}">
+				{{time ? time : '请选择时间'}}
+			</view>
+		</picker>
+        <input wx:if="{{isDetail}}" placeholder="时间" value="{{time ? time : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            采购人
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="cgr" value="{{cgrIndex}}" range="{{memberList}}">
+            <view class="picker {{cgrIndex ? '' : 'picker-color'}}">
+                {{cgrIndex ? memberList[cgrIndex] : '采购人'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="采购人" value="{{cgrIndex ? memberList[cgrIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            服务对象
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="fwdx" value="{{fwdxIndex}}" range="{{fwdxList}}">
+            <view class="picker {{fwdxIndex ? '' : 'picker-color'}}">
+                {{fwdxIndex ? fwdxList[fwdxIndex] : '服务对象'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="服务对象" value="{{fwdxIndex ? fwdxList[fwdxIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            店铺类型
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="shopType" value="{{shopTypeIndex}}" range="{{shopTypeList}}">
+            <view class="picker {{shopTypeIndex ? '' : 'picker-color'}}">
+                {{shopTypeIndex ? shopTypeList[shopTypeIndex] : '店铺类型'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="店铺类型" value="{{shopTypeIndex ? shopTypeList[shopTypeIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view wx:if="{{shopTypeIndex == 0}}" class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            网址
+        </view>
+        <input placeholder="网址" name="shopUrl" value="{{shopUrl}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            金额
+        </view>
+        <input placeholder="金额" name="money" value="{{money}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group align-start">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            采购明细
+        </view>
+        <textarea maxlength="-1" class="text-r" name="detail" value="{{detail}}" placeholder="请尽可能的描述详细..." readonly="{{isDetail}}"></textarea>
+    </view>
+    <view class="cu-bar bg-white margin-top">
+        <view class="action">
+            采购票据
+            <text class="text-red text-xs mgl6">(支出等相关材料)</text>
+        </view>
+        <view class="action">{{imgList.length}}/2</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="grid col-4 grid-square flex-sub">
+            <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="viewImage" data-url="{{imgList[index]}}">
+                <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                <view wx:if="{{!isDetail}}" class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+                    <text class="cuIcon-close"></text>
+                </view>
+            </view>
+            <view class="solids" bindtap="chooseImage" wx:if="{{imgList.length < 2 && !isDetail}}">
+                <text class="cuIcon-cameraadd"></text>
+            </view>
+        </view>
+    </view>
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">重置</button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">保存</button>
+    </view>
+</form>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

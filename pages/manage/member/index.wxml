@@ -1,0 +1,157 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">成员信息</view>
+</cu-custom>
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;height: 40px;">
+    <view class="search-form round" style="background-color: {{showContentFlag !== 0 ? '#ffffff' : '#f5f5f5'}}">
+        <text wx:if="{{showContentFlag === 0}}" class="cuIcon-search"></text>
+        <input wx:if="{{showContentFlag === 0}}" type="text" placeholder="姓名" value="{{searchText}}" confirm-type="search" bindinput="inputFn"></input>
+    </view>
+    <view class="action">
+        <text wx:if="{{showContentFlag === 0}}" class="cuIcon-search text-blue"></text>
+        <text wx:if="{{showContentFlag === 0}}" class="text-blue mgr25" bind:tap="searchFn">查询</text>
+        <text wx:if="{{showContentFlag === 0}}" class="cuIcon-add text-green"></text>
+        <text wx:if="{{showContentFlag === 0}}" class="text-green" bind:tap="addFn">新增</text>
+        <!-- 编辑 -->
+        <text wx:if="{{showContentFlag === 1}}" class="cuIcon-close text-grey"></text>
+        <text wx:if="{{showContentFlag === 1}}" class="text-grey" data-type="0" bind:tap="cancleFn">取消</text>
+    </view>
+</view>
+<!-- 主页列表 -->
+<view wx:if="{{showContentFlag === 0}}" style="margin-top: 50px;">
+    <view wx:for="{{userCardList}}" wx:key="index">
+        <view class="cu-card case" data-data="{{item}}" bindlongtap="deleteFn" bindtap="editFn" bindtouchstart="touchStart" bindtouchend="touchEnd">
+            <view class="cu-item shadow">
+                <view class="cu-list menu-avatar">
+                    <view class="cu-item" style="border-bottom: 1px solid #e2e2e2;">
+                        <view class="cu-avatar round lg" style="background-image:url({{item['touxiang'] || touxiang}});"></view>
+                        <view class="content flex-sub">
+                            <view class="text-grey">{{item['xm']}}</view>
+                            <view class="text-gray text-sm flex justify-between">
+                                出生于{{item['birth']}}，今年{{item['age'] || '0'}}周岁
+                            </view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">手机：{{item['phone']}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">微信号：{{item['wx'] || '--'}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">QQ号：{{item['qq'] || '--'}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">单位：{{item['dw'] || '--'}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">职位：{{item['zw'] || '--'}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">居住：{{item['regionC']}}{{item['xxdz']}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view wx:if="{{showContentFlag === 0 && (!userCardList || !userCardList.length)}}" class="no-data text-gray">
+    {{noData}}
+</view>
+<!-- 新增、编辑 -->
+<view wx:if="{{showContentFlag === 1}}" style="margin-top: 50px;">
+    <form catchsubmit="addEditForm" catchreset="resetForm" class="margin: 30rpx;">
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                姓名
+            </view>
+            <input placeholder="请输入姓名" name="xm" value="{{addFormGroup.xm}}" class="text-r" type="text"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                出生
+            </view>
+            <picker mode="date" value="{{birth}}" data-type="date" data-target="0" bindchange="dateSelectFn">
+                <view class="picker {{birth ? '' : 'picker-color'}}">
+                    {{birth ? birth : '请选择日期'}}
+                </view>
+            </picker>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-white mr2">*</text>
+                手机
+            </view>
+            <input placeholder="请输入手机" name="phone" value="{{addFormGroup.phone}}" class="text-r" type="number"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-white mr2">*</text>
+                微信
+            </view>
+            <input placeholder="微信" name="wx" value="{{addFormGroup.wx}}" class="text-r" type="text"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-white mr2">*</text>
+                QQ号
+            </view>
+            <input placeholder="QQ号" name="qq" value="{{addFormGroup.qq}}" class="text-r" type="text"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-white mr2">*</text>
+                单位
+            </view>
+            <input placeholder="单位" name="dw" value="{{addFormGroup.dw}}" class="text-r" type="text"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-white mr2">*</text>
+                职位
+            </view>
+            <input placeholder="职位" name="zw" value="{{addFormGroup.zw}}" class="text-r" type="text"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                居住
+            </view>
+            <picker mode="region" bindchange="positionFn" value="{{region}}">
+                <view class="picker {{region && region.length ? '' : 'picker-color'}}">
+                    {{region && region.length ? region[0] + '，' + region[1] + '，' + region[2] : '请选择居住地址' }}
+                </view>
+            </picker>
+        </view>
+        <view class="cu-form-group align-start">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                详细地址
+            </view>
+            <textarea maxlength="-1" class="text-r" name="xxdz" value="{{addFormGroup.xxdz}}" placeholder="请输入详细地址"></textarea>
+        </view>
+        <view class="cu-bar btn-group">
+            <button class="cu-btn text-green line-green shadow" formType="reset">重置</button>
+            <button class="cu-btn bg-green shadow-blur" formType="submit">保存</button>
+        </view>
+    </form>
+</view>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

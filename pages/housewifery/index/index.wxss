@@ -1,0 +1,110 @@
+.mgt5 {
+    margin-top: 20rpx;
+}
+
+.tab-content {
+    margin-top: 20rpx;
+}
+
+.fiexe-s {
+    position: fixed !important;
+}
+
+.title-content {
+    padding: 30rpx 0;
+    background-color: #ffffff;
+}
+
+.title-s {
+    border-bottom: 25rpx;
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-weight: bolder;
+    font-size: medium;
+    width: calc(100% - 20rpx);
+}
+
+.text-w {
+    width: 20rpx;
+}
+
+.pd030 {
+    padding: 0 30rpx;
+}
+
+.pdr0 {
+    padding-right: 0;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.w90 {
+    width: 90%;
+}
+
+.w95 {
+    width: 95%;
+}
+
+.w10 {
+    width: 10%;
+}
+
+.color-position {
+    margin-top: 20rpx;
+}
+
+.pdl0 {
+    padding-left: 0 !important;
+}
+
+/* 新列表 */
+.mgrl00 {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.mgr25 {
+    margin-right: 25rpx;
+}
+
+.order-item {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.btn-w {
+    width: 160rpx;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.remove {
+    width: 480rpx;
+    height: 100%;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: -480rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-data {
+    width: 100%;
+    height: 568px;
+    padding-top: 60rpx;
+    position: fixed;
+    text-align: center;
+}

@@ -1,0 +1,30 @@
+.select-s {
+    color: gray;
+    font-size: 30rpx;
+}
+
+.mgl6 {
+    margin-left: 6px;
+}
+
+.btn-s {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.btn-s button:first-child {
+    margin-right: 70rpx;
+    justify-content: en;
+}
+
+.zindex {
+    z-index: 9999 !important;
+}
+
+.zindex-1 {
+    z-index: -1 !important;
+}
+
+.mgr25 {
+    margin-right: 25rpx;
+}

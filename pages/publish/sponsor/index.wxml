@@ -1,0 +1,89 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">赞助{{isEdit ? '编辑' : (isDetail ? '详情' : '申请')}}</view>
+</cu-custom>
+<form catchsubmit="submit" catchreset="reset">
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            申请概述
+        </view>
+        <input placeholder="请输入申请概述" name="sqgs" value="{{sqgs}}" type="text" class="text-r" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            申请人
+        </view>
+        <input placeholder="请输入名字/小名" name="sqr" value="{{sqr}}" type="text" class="text-r" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            申请金额
+        </view>
+        <input placeholder="请输入申请金额" name="sqje" value="{{sqje}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            收款方式
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="gatheringFn" value="{{gatheringIndex}}" range="{{gatheringList}}">
+            <view class="picker {{!gatheringIndex ? 'select-s' : ''}} {{gatheringIndex ? '' : 'picker-color'}}">
+                {{gatheringIndex ? gatheringList[gatheringIndex] : '请选择收款方式'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="收款方式" value="{{gatheringIndex ? gatheringList[gatheringIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group" wx:if="{{gatheringIndex === '2'}}">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            银行卡号
+        </view>
+        <input placeholder="请输入银行卡号" name="bankCard" value="{{bankCard}}" class="text-r" type="number" bindinput="bankInput" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group align-start">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            申请事项
+        </view>
+        <textarea maxlength="-1" class="text-r" name="sqsx" value="{{sqsx}}" placeholder="请尽可能的描述详细..." readonly="{{isDetail}}"></textarea>
+    </view>
+    <view wx:if="{{(isDetail) && zzr.length}}" class="cu-form-group align-start">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            赞助人
+        </view>
+        <textarea maxlength="-1" class="text-r" name="zzrStr" value="{{zzrStr}}" placeholder="无人赞助……" readonly="{{isDetail}}"></textarea>
+    </view>
+    <view class="cu-bar bg-white margin-top">
+        <view class="action">
+            相关申请材料
+            <text class="text-red text-xs mgl6">(收据等相关材料)</text>
+        </view>
+        <view class="action">{{imgList.length}}/2</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="grid col-4 grid-square flex-sub">
+            <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="viewImage" data-url="{{imgList[index]}}">
+                <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                <view wx:if="{{!isDetail}}" class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+                    <text class="cuIcon-close"></text>
+                </view>
+            </view>
+            <view class="solids" bindtap="chooseImage" wx:if="{{imgList.length < 2 && !isDetail}}">
+                <text class="cuIcon-cameraadd"></text>
+            </view>
+        </view>
+    </view>
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">重置</button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">保存</button>
+    </view>
+</form>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>上传数据中...</view>
+</view>

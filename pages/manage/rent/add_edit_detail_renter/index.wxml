@@ -1,0 +1,203 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">
+        {{!isEdit && !isDetail ? '新增租客信息' : (isDetail ? '租客信息详情' : '编辑租客信息')}}
+    </view>
+</cu-custom>
+<form catchsubmit="submit" catchreset="reset">
+    <view class="text-tip-s">承租人联系方式</view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            承租人
+        </view>
+        <input placeholder="承租人姓名" name="tenant" value="{{rentObj['tenant']}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            手机号
+        </view>
+        <input placeholder="手机号" name="phone" value="{{rentObj['phone']}}" class="text-r" type="number" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            微信
+        </view>
+        <input placeholder="微信" name="wxNumber" value="{{rentObj['wxNumber']}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            QQ
+        </view>
+        <input placeholder="QQ" name="qqNumber" value="{{rentObj['qqNumber']}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="text-tip-s">
+        <view>签约信息</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            房间号
+        </view>
+        <!-- <input placeholder="房间号" name="roomNum" value="{{rentObj['roomNum']}}" class="text-r" type="text" data-type="roomNum" bindinput="inputFn" disabled="{{isDetail}}"></input> -->
+        <picker wx:if="{{!isDetail}}" data-type="roomIndex" value="{{rentObj['roomIndex']}}" range="{{roomList}}" bindchange="selectFn">
+            <view class="picker {{rentObj['roomIndex'] ? '' : 'picker-color'}}">
+                {{rentObj['roomIndex'] ? roomList[rentObj['roomIndex']] : '请选择房间号'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="房间号" value="{{rentObj['roomIndex'] ? roomList[rentObj['roomIndex']] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            入住日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{rentObj['liveDate']}}" data-type="liveDate" bindchange="selectFn">
+            <view class="picker {{rentObj['liveDate'] ? '' : 'picker-color'}}">
+                {{rentObj['liveDate'] ? rentObj['liveDate'] : '入住日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="入住日期" value="{{rentObj['liveDate'] ? rentObj['liveDate'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            起租日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{rentObj['leaseCommencementDate']}}" data-type="leaseCommencementDate" bindchange="selectFn">
+            <view class="picker {{rentObj['leaseCommencementDate'] ? '' : 'picker-color'}}">
+                {{rentObj['leaseCommencementDate'] ? rentObj['leaseCommencementDate'] : '起租日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="起租日期" value="{{rentObj['leaseCommencementDate'] ? rentObj['leaseCommencementDate'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            到租日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{rentObj['toRentDate']}}" data-type="toRentDate" bindchange="selectFn">
+            <view class="picker {{rentObj['toRentDate'] ? '' : 'picker-color'}}">
+                {{rentObj['toRentDate'] ? rentObj['toRentDate'] : '到租日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="到租日期" value="{{rentObj['toRentDate'] ? rentObj['toRentDate'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            收租周期
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="collectRentsCycle" value="{{rentObj['collectRentsCycle']}}" range="{{collectRentsCycleList}}" range-key="label">
+            <view class="picker">
+                {{collectRentsCycleList[rentObj['collectRentsCycle']]['label']}}/次
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="收租周期" value="{{collectRentsCycleList[rentObj['collectRentsCycle']]['label']}}/次" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            押金
+        </view>
+        <input placeholder="押金" name="deposit" value="{{rentObj['deposit']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            租金
+        </view>
+        <input placeholder="租金" name="rentMoney" value="{{rentObj['rentMoney']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="text-tip-s">
+        <view>详细信息（如电费1.5一度，初始值为200度）</view>
+        <view wx:if="{{!isDetail}}" class="add-text">
+            <text class="cuIcon-add" bind:tap="addDetail"></text>
+        </view>
+    </view>
+    <!-- 明细 start -->
+    <view wx:for="{{rentObj['detailList']}}" wx:key="index" class="bt1">
+        <view class="cu-form-group">
+            <view class="title">
+                <text wx:if="{{rentObj['detailList'].length > 2 && !isDetail}}" class="cuIcon-roundclosefill text-{{index > 1 ? 'red' : 'white'}}" data-index="{{index}}" bind:tap="delDetail"></text>
+                <text class="text-white mr2">*</text>
+                {{item['label']}}
+            </view>
+            <input placeholder="金额" name="detail{{index}}" value="{{item['value']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+            <text>|</text>
+            <input placeholder="初始值" name="init{{index}}" value="{{item['init']}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+        </view>
+    </view>
+    <!-- 明细 end -->
+    <view class="cu-bar bg-white margin-top">
+        <view class="action">
+            相关签约材料
+            <text class="text-red text-xs mgl6">(合同、身份等信息)</text>
+        </view>
+        <view class="action">{{imgList.length}}/5</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="grid col-4 grid-square flex-sub">
+            <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="viewImage" data-url="{{imgList[index]}}">
+                <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                <view wx:if="{{!isDetail}}" class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+                    <text class="cuIcon-close"></text>
+                </view>
+            </view>
+            <view class="solids" bindtap="chooseImage" wx:if="{{imgList.length < 2 && !isDetail}}">
+                <text class="cuIcon-cameraadd"></text>
+            </view>
+        </view>
+    </view>
+    <view class="cu-form-group align-start margin-top">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            备注
+        </view>
+        <textarea maxlength="-1" class="text-r" name="remark" value="{{rentObj['remark']}}" placeholder=""></textarea>
+    </view>
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">
+            重置
+        </button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">
+            保存
+        </button>
+    </view>
+</form>
+<!-- 提示信息 -->
+<view wx:if="{{isShowTip}}" class="cu-modal bottom-modal show">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white jC">
+            <view class="action text-green" bindtap="closeTip">关闭</view>
+        </view>
+        <view class="padding-xl">{{showTipText}}</view>
+    </view>
+</view>
+<!-- 明细填写 -->
+<view class="cu-modal {{isShowDetail ? 'show' : ''}}">
+    <view class="cu-dialog" style="vertical-align: baseline;" catchtap>
+        <view class="cu-bar btn-group text-tip">[注]：输入的文字必须在5个字符之内</view>
+        <view class="input-money">
+            <input class="mgb15" placeholder="请输入明细标签" name="detailTab" value="{{detailObj['detailTab']}}" type="text" data-type="detailTab" bindinput="inputFn"></input>
+            <input class="mgb15" placeholder="金额" name="money" value="{{detailObj['money']}}" type="text" data-type="money" bindinput="inputFn"></input>
+            <input placeholder="初始值" name="init" value="{{detailObj['init']}}" type="text" data-type="init" bindinput="inputFn"></input>
+        </view>
+        <view class="cu-bar btn-group">
+            <button class="cu-btn text-green line-green shadow" data-flag="0" bind:tap="addAcyionFn">
+                取消
+            </button>
+            <button class="cu-btn bg-green shadow-blur {{disBtn ? 'dis-btn' : ''}}" disabled="{{disBtn}}" data-flag="1" bind:tap="addAcyionFn">
+                确定
+            </button>
+        </view>
+    </view>
+</view>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

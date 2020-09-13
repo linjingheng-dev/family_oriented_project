@@ -1,0 +1,96 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">{{isEdit ? '事项编辑' : '事项撰写'}}</view>
+</cu-custom>
+<form catchsubmit="submit" catchreset="reset">
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            标题
+        </view>
+        <input placeholder="请输入标题" placeholder="标题" name="title" value="{{title}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            类型
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="type" value="{{typeIndex}}" range="{{typeList}}">
+            <view class="picker {{typeIndex ? '' : 'picker-color'}}">
+                {{typeIndex ? typeList[typeIndex] : '请选择类型'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="类型" value="{{typeIndex ? typeList[typeIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            等级
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="grade" value="{{matterGradeIndex}}" range="{{matterGrade}}">
+            <view class="picker {{matterGradeIndex ? '' : 'picker-color'}}">
+                {{matterGradeIndex ? matterGrade[matterGradeIndex] : '请选择等级'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="等级" value="{{matterGradeIndex ? matterGrade[matterGradeIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{matterDate}}" data-type="date" bindchange="selectFn">
+            <view class="picker {{matterDate ? '' : 'picker-color'}}">
+                {{matterDate ? matterDate : '请选择日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="日期" value="{{matterDate ? matterDate : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            时间
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="time" value="{{time}}" data-type="time" bindchange="selectFn">
+			<view class="picker {{time ? '' : 'picker-color'}}">
+				{{time ? time : '请选择时间'}}
+			</view>
+		</picker>
+        <input wx:if="{{isDetail}}" placeholder="时间" value="{{time ? time : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>    
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            {{typeIndex == '0' ? '体检对象' : '主要执行者'}}
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="zxz" value="{{zxzIndex}}" range="{{memberList}}">
+            <view class="picker {{zxzIndex ? '' : 'picker-color'}}">
+                {{zxzIndex ? memberList[zxzIndex] : '请选择' + (typeIndex == '0' ? '体检对象' : '主要执行者')}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="{{typeIndex == '0' ? '体检对象' : '主要执行者'}}" value="{{zxzIndex ? memberList[zxzIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group align-start">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            地点
+        </view>
+        <textarea maxlength="-1" class="text-r" name="dd" value="{{dd}}" placeholder="请尽可能的描述详细..." readonly="{{isDetail}}"></textarea>
+    </view>
+    <view class="cu-form-group align-start">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            备注
+        </view>
+        <textarea maxlength="-1" class="text-r" name="bz" value="{{bz}}" placeholder="请尽可能的描述详细..." readonly="{{isDetail}}"></textarea>
+    </view>
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">重置</button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">保存</button>
+    </view>
+</form>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

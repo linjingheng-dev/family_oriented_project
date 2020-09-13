@@ -1,0 +1,16 @@
+.add-btn-s {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80rpx;
+    height: 80rpx;
+    background-color: #39b54a;
+    color: #ffffff;
+    border-radius: 50%;
+}
+
+.time-qujian {
+    padding: 30rpx;
+    color: #39b54a;
+}

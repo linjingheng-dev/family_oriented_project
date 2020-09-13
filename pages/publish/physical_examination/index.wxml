@@ -1,0 +1,106 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">体检结果</view>
+</cu-custom>
+<form catchsubmit="submit" catchreset="reset">
+    <view class="cu-form-group margin-top">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            体检者
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="tjdx" value="{{tjdxIndex}}" range="{{memberList}}">
+            <view class="picker {{tjdxIndex ? '' : 'picker-color'}}">
+                {{tjdxIndex ? memberList[tjdxIndex] : '请选择体检对象'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="体检者" value="{{tjdxIndex ? memberList[tjdxIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            医院
+        </view>
+        <input placeholder="请输入体检医院" name="tjyy" value="{{tjyy}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            科别
+        </view>
+        <input placeholder="请输入体检科别" name="tiks" value="{{tiks}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            送检医师
+        </view>
+        <input placeholder="请输入送检医师" name="sjys" value="{{sjys}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            日期
+        </view>
+        <picker wx:if="{{!isDetail}}" mode="date" value="{{tjDate}}" data-type="date" bindchange="selectFn">
+            <view class="picker {{tjDate ? '' : 'picker-color'}}">
+                {{tjDate ? tjDate : '请选择日期'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="日期" value="{{tjDate ? tjDate : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            体检概述
+        </view>
+        <picker wx:if="{{!isDetail}}" bindchange="selectFn" data-type="tjgs" value="{{tjgsIndex}}" range="{{tjgsList}}">
+            <view class="picker {{tjgsIndex ? '' : 'picker-color'}}">
+                {{tjgsIndex ? tjgsList[tjgsIndex] : '请选择体检概述'}}
+            </view>
+        </picker>
+        <input wx:if="{{isDetail}}" placeholder="体检概述" value="{{tjgsIndex ? tjgsList[tjgsIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">
+            <text class="text-red mr2">*</text>
+            费用
+        </view>
+        <input placeholder="请输入体检费用" name="tjfy" value="{{tjfy}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+    </view>
+    <view class="cu-form-group align-start">
+        <view class="title">
+            <text class="text-white mr2">*</text>
+            注意事项
+        </view>
+        <textarea maxlength="-1" class="text-r" name="zysx" value="{{zysx}}" placeholder="请尽可能的描述详细..." readonly="{{isDetail}}"></textarea>
+    </view>
+    <view class="cu-bar bg-white margin-top">
+        <view class="action">
+            体检报告
+            <text class="text-red text-xs mgl6">(保存主要信息)</text>
+        </view>
+        <view class="action">{{tjImgList.length}}/3</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="grid col-4 grid-square flex-sub">
+            <view class="bg-img" wx:for="{{tjImgList}}" wx:key="index" bindtap="viewImage" data-url="{{tjImgList[index]}}">
+                <image src='{{tjImgList[index]}}' mode='aspectFill'></image>
+                <view wx:if="{{!isDetail}}" class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+                    <text class="cuIcon-close"></text>
+                </view>
+            </view>
+            <view class="solids" bindtap="chooseImage" wx:if="{{tjImgList.length < 3 && !isDetail}}">
+                <text class="cuIcon-cameraadd"></text>
+            </view>
+        </view>
+    </view>
+    <view class="cu-bar btn-group">
+        <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">重置</button>
+        <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">保存</button>
+    </view>
+</form>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

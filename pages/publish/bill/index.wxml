@@ -1,0 +1,158 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">账单{{isEdit ? '编辑' : (isDetail ? '详情' : '填写')}}</view>
+</cu-custom>
+<view>
+    <!-- 选项卡 -->
+    <scroll-view wx:if="{{!isEdit && !isDetail}}" scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
+        <view class="cu-item {{currentTab === 0 ? 'text-green cur' : ''}}" bindtap="tabSelect" data-id="0">
+            <text class="cuIcon-writefill"></text>
+            填写报表
+        </view>
+        <view class="cu-item {{currentTab === 1 ? 'text-green cur' : ''}}" bindtap="tabSelect" data-id="1">
+            <text class="cuIcon-group_fill"></text>
+            添加成员
+        </view>
+        <view class="cu-item {{currentTab === 2 ? 'text-green cur' : ''}}" bindtap="tabSelect" data-id="2">
+            <text class="cuIcon-roundaddfill"></text>
+            添加项目
+        </view>
+    </scroll-view>
+    <!-- 填写表单 -->
+    <form catchsubmit="addForm" catchreset="resetForm" wx:if="{{currentTab === 0}}">
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                项目
+            </view>
+            <picker wx:if="{{!isDetail}}" bindchange="xmSelectFn" data-type="xmmc" value="{{xmIndex}}" range="{{xmmcList}}" range-key="xmmc">
+                <view class="picker {{!xmIndex ? 'select-s' : ''}} {{xmIndex ? '' : 'picker-color'}}">
+                    {{xmIndex ? xmmcList[xmIndex]['xmmc'] : '请选择项目'}}
+                </view>
+            </picker>
+            <input wx:if="{{isDetail}}" placeholder="项目" value="{{xmIndex ? xmmcList[xmIndex]['xmmc'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                出钱者
+            </view>
+            <picker wx:if="{{!isDetail}}" bindchange="xmSelectFn" data-type="xm" value="{{nameIndex}}" range="{{memberList}}" range-key="xm">
+                <view class="picker {{!nameIndex ? 'select-s' : ''}} {{nameIndex ? '' : 'picker-color'}}">
+                    {{nameIndex ? memberList[nameIndex]['xm'] : '请选择出钱者'}}
+                </view>
+            </picker>
+            <input wx:if="{{isDetail}}" placeholder="出钱者" value="{{nameIndex ? memberList[nameIndex]['xm'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                收钱者
+            </view>
+            <picker wx:if="{{!isDetail}}" bindchange="xmSelectFn" data-type="sqxm" value="{{sqNameIndex}}" range="{{memberList}}" range-key="xm">
+                <view class="picker {{!sqNameIndex ? 'select-s' : ''}} {{sqNameIndex ? '' : 'picker-color'}}">
+                    {{sqNameIndex ? memberList[sqNameIndex]['xm'] : '请选择收钱者'}}
+                </view>
+            </picker>
+            <input wx:if="{{isDetail}}" placeholder="收钱者" value="{{sqNameIndex ? memberList[sqNameIndex]['xm'] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-white mr2">*</text>
+                中间人
+            </view>
+            <picker wx:if="{{!isDetail}}" bindchange="xmSelectFn" data-type="zjr" value="{{zjrIndex}}" range="{{nameList}}">
+                <view class="picker {{!zjrIndex ? 'select-s' : ''}} {{zjrIndex ? '' : 'picker-color'}}">
+                    {{zjrIndex ? nameList[zjrIndex] : '中间人'}}
+                </view>
+            </picker>
+            <input wx:if="{{isDetail}}" placeholder="中间人" value="{{zjrIndex ? nameList[zjrIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                金额
+            </view>
+            <input placeholder="请输入支出金额" name="zcje" value="{{zcje}}" class="text-r" type="digit" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                方式
+            </view>
+            <picker wx:if="{{!isDetail}}" bindchange="xmSelectFn" data-type="zc" value="{{zcIndex}}" range="{{zcList}}">
+                <view class="picker {{!zcIndex ? 'select-s' : ''}} {{zcIndex ? '' : 'picker-color'}}">
+                    {{zcIndex ? zcList[zcIndex] : '请选择支出方式'}}
+                </view>
+            </picker>
+            <input wx:if="{{isDetail}}" placeholder="方式" value="{{zcIndex ? zcList[zcIndex] : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-form-group" wx:if="{{zcIndex === '2'}}">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                银行卡号
+            </view>
+            <input placeholder="请输入银行卡号" name="bankCard" value="{{bankCard}}" class="text-r" type="number" bindinput="bankInput" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">
+                <text class="text-red mr2">*</text>
+                日期
+            </view>
+            <picker wx:if="{{!isDetail}}" mode="date" value="{{selectDate}}" data-type="date" bindchange="xmSelectFn">
+                <view class="picker {{selectDate ? '' : 'picker-color'}}">
+                    {{selectDate ? selectDate : '请选择日期'}}
+                </view>
+            </picker>
+            <input wx:if="{{isDetail}}" placeholder="日期" value="{{selectDate ? selectDate : ''}}" class="text-r" type="text" disabled="{{isDetail}}"></input>
+        </view>
+        <view class="cu-bar btn-group">
+            <button wx:if="{{!isEdit && !isDetail}}" class="cu-btn text-green line-green shadow" formType="reset">
+                重置
+            </button>
+            <button wx:if="{{!isDetail}}" class="cu-btn bg-green shadow-blur" formType="submit">
+                保存
+            </button>
+        </view>
+    </form>
+    <!-- 添加成员 -->
+    <form catchsubmit="memberSubmit" catchreset="memberFormReset" wx:if="{{currentTab === 1}}">
+        <view class="cu-form-group">
+            <view class="title">姓名</view>
+            <input placeholder="姓名" name="xm" value="{{xm}}" type="text" class="text-r"></input>
+        </view>
+        <view class="btn-s margin-top">
+            <button class="cu-btn bg-green" formType="submit" data-type="member_a">添加</button>
+            <button class="cu-btn bg-grey" formType="reset">重置</button>
+            <button class="cu-btn bg-blue" formType="submit" data-type="member_s">查询</button>
+        </view>
+    </form>
+    <!-- 添加项目 -->
+    <form catchsubmit="projectSubmit" catchreset="projectFormReset" wx:if="{{currentTab === 2}}">
+        <view class="cu-form-group">
+            <view class="title">项目名称</view>
+            <input placeholder="项目名称" name="xmmc" value="{{xmmc}}" type="text" class="text-r"></input>
+        </view>
+        <view class="btn-s margin-top">
+            <button class="cu-btn bg-green" formType="submit" data-type="project_a">添加</button>
+            <button class="cu-btn bg-grey" formType="reset">重置</button>
+            <button class="cu-btn bg-blue" formType="submit" data-type="project_s">查询</button>
+        </view>
+    </form>
+</view>
+<!-- 成员、项目列表 -->
+<view class="cu-list menu card-menu margin-bottom-xl shadow-lg radius">
+    <view wx:if="{{currentTab !== 0}}" class="bg-white mgt20" style="border-radius: 5px;">
+        <view wx:for="{{showList}}" wx:key="index" data-flag="{{currentTab}}">
+            <view class="content-s" bindtap="editFn" bindlongtap="deleteFn" bindtouchstart="touchStart" bindtouchend="touchEnd" data-data="{{item}}">
+                <view>{{currentTab === 1 ? item['xm'] : item['xmmc']}}</view>
+                <view class="text-gray text-sm">{{item['nickName']}}于{{item['createDate']}}创建</view>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>

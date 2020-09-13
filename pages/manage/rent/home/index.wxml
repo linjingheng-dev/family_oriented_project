@@ -1,0 +1,203 @@
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">租赁管理</view>
+</cu-custom>
+<!-- 支出与收入 -->
+<scroll-view scroll-x class="bg-white nav" scroll-with-animation scroll-left="{{scrollLeft}}">
+    <view wx:for="{{rentList}}" wx:key="index" class="cu-item {{item['isCheck'] ? 'text-green cur' : ''}}" bindtap="tabSelect" data-id="{{item['id']}}">
+        <text class="cuIcon-{{item['icon']}}"></text>
+        {{item['title']}}{{item['id'] === 0 ? ' (' + tenantList.length + '人)' : ''}}
+    </view>
+</scroll-view>
+<!-- 租客 -->
+<view wx:if="{{currentTab === 0}}">
+    <view wx:for="{{tenantList}}" wx:key="index">
+        <view class="cu-card case" data-data="{{item}}" data-type="0" bindlongtap="deleteFn" bindtap="editFn" bindtouchstart="touchStart" bindtouchend="touchEnd">
+            <view class="cu-item shadow">
+                <view class="cu-list menu-avatar">
+                    <view class="cu-item" style="border-bottom: 1px solid #e2e2e2;">
+                        <view class="cu-avatar round lg" style="background-image:url({{item['touxiang'] || touxiang}});"></view>
+                        <view class="content flex-sub">
+                            <view class="text-grey">{{item['tenant']}}</view>
+                            <view class="text-gray text-sm flex justify-between">
+                                于{{item['liveDate']}}入住，到租日期：{{item['toRentDate']}}
+                            </view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item dflx">
+                            <view class="text-grey">
+                                收租周期：{{rentCycle[item['collectRentsCycle']]['label']}}/次
+                            </view>
+                            <view class="text-grey mr60">租金：{{item['rentMoney']}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">房间：{{item['roomNum']}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">手机：{{item['phone']}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">微信：{{item['wxNumber'] || '--'}}</view>
+                        </view>
+                    </view>
+                    <view class="cu-item" style="height: 80rpx;">
+                        <view class="content flex-sub new-cut-item">
+                            <view class="text-grey">QQ号：{{item['qqNumber'] || '--'}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 无数据 -->
+    <view wx:if="{{!tenantList || !tenantList.length}}" class="no-data text-gray">暂无租客入住……</view>
+    <view class="add-btn-s" style="left: {{screenWidth - 60}}px;top: {{screenHeight - 80}}px;" bind:tap="addRenter">
+        <text class="cuIcon-add"></text>
+    </view>
+    <!-- <movable-area class="movable-area-move" style="width: {{screenWidth}}px;height: {{screenHeight - CustomBar - 50}}px;">
+        <movable-view x="{{screenWidth - 30}}" y="{{screenHeight - CustomBar - 60}}" direction="all" bind:tap="addRenter">
+            <text class="cuIcon-add"></text>
+        </movable-view>
+    </movable-area> -->
+</view>
+<!-- 房租 -->
+<view wx:if="{{currentTab === 1}}">
+    <scroll-view wx:if="{{rentMoneyList && rentMoneyList.length}}" scroll-y="{{isScroll}}">
+        <view class="time-qujian">
+            <view>时间区段：{{tab2Obj['startDate']}} 至 {{tab2Obj['endDate']}}</view>
+            <view>
+                已交人数：
+                <text class="text-orange">{{tab2Obj['haveRent']}}</text>
+                ，未交人数：
+                <text class="text-red">{{tab2Obj['noRent']}}</text>
+                ，总收：
+                <text class="text-blue">{{tab2Obj['totalMoney']}} 元</text>
+            </view>
+        </view>
+        <view class="cu-list menu card-menu margin-bottom-xl mgrl00 shadow-lg radius">
+            <view wx:for="{{rentMoneyList}}" wx:key="index" class="order-item title-content {{index < (rentMoneyList.length - 1) ? 'border-bottom' : ''}}" data-data="{{item}}" data-index='{{index}}' style="right:{{item.right}}rpx">
+                <view class="pd030 pdr0" style="width: 100%;" data-data="{{item}}" data-index='{{index}}' data-flag="0" bindlongtap="deleteFn" bindtap="editFn">
+                    <view class="flex align-center">
+                        <view class="radius w90">
+                            <view class="title-s">{{item['roomNum']}}：{{item['tenant']}}</view>
+                            <view class="text-gray text-sm">手机号：{{item['phone']}}</view>
+                            <view wx:if="{{item['tabList'].length}}" class="text-gray text-sm">
+                                <label wx:for="{{item['tabList']}}" wx:key="index1" wx:for-item="childItem" class="padding-xs cu-tag bg-{{childItem['color']}} light">
+                                    {{childItem['name']}}
+                                </label>
+                            </view>
+                        </view>
+                        <view class="padding-sm margin-xs radius w10">
+                            <text class="cuIcon-right text-w"></text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-tabbar-height"></view>
+    </scroll-view>
+    <view wx:if="{{!rentMoneyList || !rentMoneyList.length}}" class="no-data text-gray">
+        暂无收租记录……
+    </view>
+    <view class="add-btn-s" style="left: {{screenWidth - 60}}px;top: {{screenHeight - 140}}px;" data-flag="0" bind:tap="rentActionFn">
+        <text class="cuIcon-search"></text>
+    </view>
+    <view class="add-btn-s" style="left: {{screenWidth - 60}}px;top: {{screenHeight - 80}}px;" data-flag="1" bind:tap="rentActionFn">
+        <text class="cuIcon-add"></text>
+    </view>
+</view>
+<!-- 即将到期房客 -->
+<view wx:if="{{currentTab === 2}}">
+    <scroll-view wx:if="{{expireRenterList && expireRenterList.length}}" scroll-y="{{isScroll}}">
+        <view class="time-qujian">合同到期的前 {{setExpireObj['expireDays']}} 天数据列表</view>
+        <view class="cu-list menu card-menu margin-bottom-xl mgrl00 shadow-lg radius">
+            <view wx:for="{{expireRenterList}}" wx:key="index" class="order-item title-content {{index < (expireRenterList.length - 1) ? 'border-bottom' : ''}}" data-data="{{item}}" data-index='{{index}}' style="right:{{item.right}}rpx">
+                <view class="pd030 pdr0" style="width: 100%;" data-data="{{item}}" data-index='{{index}}' data-flag="2">
+                    <view class="flex align-center">
+                        <view class="radius w100">
+                            <view class="title-s">{{item['roomNum']}}：{{item['tenant']}}</view>
+                            <view class="text-gray text-sm">手机号：{{item['phone']}}</view>
+                            <view wx:if="{{item['tabList'].length}}" class="text-gray text-sm">
+                                <label wx:for="{{item['tabList']}}" wx:key="index1" wx:for-item="childItem" class="padding-xs cu-tag bg-{{childItem['color']}} light">
+                                    {{childItem['name']}}
+                                </label>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-tabbar-height"></view>
+    </scroll-view>
+    <view wx:if="{{!expireRenterList || !expireRenterList.length}}" class="no-data text-gray">
+        暂无即将到期的租客记录……
+    </view>
+    <view class="add-btn-s" style="left: {{screenWidth - 60}}px;top: {{screenHeight - 80}}px;" data-flag="1" bind:tap="settingFn">
+        <text class="cuIcon-settings"></text>
+    </view>
+</view>
+<!-- 房间管理 -->
+<view wx:if="{{currentTab === 3}}">
+    <scroll-view wx:if="{{rentingRoomList && rentingRoomList.length}}" scroll-y="{{isScroll}}">
+        <view class="time-qujian">
+            <view>
+                已经出租的房间：
+                <text class="text-orange">{{tab3Obj['haveRentingNum']}}</text> 间
+                ，空闲的房间：
+                <text class="text-red">{{tab3Obj['empityNum']}}</text> 间
+            </view>
+        </view>
+        <view class="cu-list menu card-menu margin-bottom-xl mgrl00 shadow-lg radius">
+            <view wx:for="{{rentingRoomList}}" wx:key="index" class="order-item title-content {{index < (rentingRoomList.length - 1) ? 'border-bottom' : ''}}" data-data="{{item}}" data-index='{{index}}' style="right:{{item.right}}rpx">
+                <view class="pd030 pdr0" style="width: 100%;" data-data="{{item}}" data-index='{{index}}' data-flag="2" bindlongtap="deleteFn" bindtap="editFn">
+                    <view class="flex align-center">
+                        <view class="radius w100">
+                            <view class="title-s">房号：{{item['roomNum']}}，{{item['peopleNum'] ? item['peopleNum'] + '人间' : '未设置几人间'}}</view>
+                            <view wx:if="{{item['tabList'].length}}" class="text-gray text-sm">
+                                <label wx:for="{{item['tabList']}}" wx:key="index1" wx:for-item="childItem" class="padding-xs cu-tag bg-{{childItem['color']}} light">
+                                    {{childItem['name']}}
+                                </label>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-tabbar-height"></view>
+    </scroll-view>
+    <view wx:if="{{!rentingRoomList || !rentingRoomList.length}}" class="no-data text-gray">
+        暂无可招租房间记录……
+    </view>
+    <view class="add-btn-s" style="left: {{screenWidth - 60}}px;top: {{screenHeight - 80}}px;" data-flag="1" bind:tap="writeRoomFn">
+        <text class="cuIcon-write"></text>
+    </view>
+</view>
+<!-- 弹窗加载 -->
+<view class='cu-load load-modal' wx:if="{{isShow}}">
+    <image src='/images/loading.gif' class='png' mode='aspectFit'></image>
+    <view class='gray-text'>{{loadingText}}...</view>
+</view>
+<!-- 到期设置 -->
+<view class="cu-modal {{setExpireObj['isSetExpire'] ? 'show' : ''}}">
+    <view class="cu-dialog" style="vertical-align: baseline;" catchtap>
+        <view class="cu-bar btn-group text-tip">[注]：即将到期天数是在合同到期的前几天</view>
+        <view class="input-money">
+            <input class="mgb15" placeholder="即将到期天数设置" name="expireDays" value="{{setExpireObj['expireDays']}}" type="number" data-obj="setExpireObj" data-type="expireDays" bindinput="inputFn"></input>
+        </view>
+        <view class="cu-bar btn-group">
+            <button class="cu-btn text-green line-green shadow" data-flag="0" bind:tap="addAcyionFn">
+                取消
+            </button>
+            <button class="cu-btn bg-green shadow-blur {{!setExpireObj['expireDays'] ? 'dis-btn' : ''}}" disabled="{{!setExpireObj['expireDays']}}" data-flag="1" bind:tap="addAcyionFn">
+                确定
+            </button>
+        </view>
+    </view>
+</view>
