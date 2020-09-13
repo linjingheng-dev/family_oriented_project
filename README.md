@@ -19,6 +19,20 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 ### 受众群体
 任何一个家庭单元，均可对单元进行管理
 
+### 效果图
+事项列表-点击查看、双击编辑、长按删除、左滑定时、置顶、办结：  
+<img src="./images/md_img/x1.jpg" />  
+<img src="./images/md_img/x2.jpg" />  
+定时任务设置-选择触发日期及时间，在相应的时间内触发：  
+<img src="./images/md_img/x3.jpg" />  
+帮衬-可查询及导出相关报表数据：  
+<img src="./images/md_img/x4.jpg" />  
+邀请码-生成邀请码，用于邀请家人加入：  
+<img src="./images/md_img/x5.jpg" />  
+房屋租赁管理：  
+<img src="./images/md_img/x6.jpg" />  
+
+
 ### 主要操作流程
 操作流程可分为家庭管理者、家庭成员。  
 邀请成员：  
