@@ -1,3 +1,5 @@
+[GitHub上查看图片](https://blog.csdn.net/u014128039/article/details/105772479?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-105772479.nonecase&utm_term=github%20md%20%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA)
+
 # 顾家 - 家庭类企业化管理，管理家庭相关事宜
 
 family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented_project
@@ -21,16 +23,16 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 
 ### 效果图
 事项列表-点击查看、双击编辑、长按删除、左滑定时、置顶、办结：  
-![](https://github.com/lidegejing/family_oriented_project/blob/master/images/md_img/x1.jpg)    
-<img src="./images/md_img/x2.jpg" />  
+<img src="./images/md_img/x1.jpg" width="200" height="400" />
+<img src="./images/md_img/x2.jpg" width="200" height="400" />  
 定时任务设置-选择触发日期及时间，在相应的时间内触发：  
-<img src="./images/md_img/x3.jpg" />  
+<img src="./images/md_img/x3.jpg" width="200" height="400" />  
 帮衬-可查询及导出相关报表数据：  
-<img src="./images/md_img/x4.jpg" />  
+<img src="./images/md_img/x4.jpg" width="200" height="400" />  
 邀请码-生成邀请码，用于邀请家人加入：  
-<img src="./images/md_img/x5.jpg" />  
+<img src="./images/md_img/x5.jpg" width="200" height="400" />  
 房屋租赁管理：  
-<img src="./images/md_img/x6.jpg" />  
+<img src="./images/md_img/x6.jpg" width="200" height="400" />  
 
 
 ### 主要操作流程
