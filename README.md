@@ -23,6 +23,7 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 
 ### 效果图
 事项列表-点击查看、双击编辑、长按删除、左滑定时、置顶、办结：  
+![image](https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/background/background_oQnzV5CezstSe9Dyc-rUVxxf073U_1599653920098.png?sign=943d7ccc8f087c7d2bc24d6d08d89a8c&t=1600086455)  
 <img src="./images/md_img/x1.jpg" width="200" height="400" />
 <img src="./images/md_img/x2.jpg" width="200" height="400" />  
 定时任务设置-选择触发日期及时间，在相应的时间内触发：  
