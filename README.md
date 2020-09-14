@@ -1,4 +1,4 @@
-[GitHub上查看图片](https://blog.csdn.net/u014128039/article/details/105772479?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-105772479.nonecase&utm_term=github%20md%20%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA)
+[GitHub上查看图片](https://blog.csdn.net/u014128039/article/details/105772479?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-105772479.nonecase&utm_term=github%20md%20%E5%9B%BE%E7%89%87%E4%B8%8D%E6%98%BE%E7%A4%BA)  
 
 # 顾家 - 家庭类企业化管理，管理家庭相关事宜
 
@@ -6,7 +6,7 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 
 一、项目
 ---
-该项目是基于微信云开发开发的微信小程序项目，项目主要由微信小程序 + 云数据库 + 云存储 + 云函数组成。  
+该项目是基于微信云开发开发的微信小程序项目，项目主要由微信小程序 + 云数据库 + 云存储 + 云函数组成，样式及小图标大部分采用的是 [ColorUI](https://www.color-ui.com/)。
   
 ### 背景  
 家是一个情感的寄托，有家，我们就更能体会到家给我们带来的快乐，这种快乐促使我们在未来的道路上，在不同的城市里勇往直前，奋力拼搏。在这个大的前提下，我就在想能不能为家做一点我所擅长的事情，思来想去，结合日常工作上的经历，就想到了给家里做个管理软件，借此微信小程序提供的资源，于是就诞生了该项目。  
@@ -80,7 +80,7 @@ cloud.init({
 _ENV: '####'
 ```
 3.微信开发者工具，点击云开发 -> 选择数据库 ->新建集合名
-  
+
 至此，该项目云开发环境就算搭建完成了。【建议】，将 config/conf.js 中应用到的云存储文件换成自己的云存储：
 ```JavaScript
 AUTHORTOUXIANG // 作者头像
