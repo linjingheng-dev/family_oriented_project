@@ -1,6 +1,6 @@
 module.exports = {
     // 作者头像
-    AUTHORTOUXIANG: 'https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/system/user.png? sign=3c17dcc265a121a44f80ea75fa4e10c2&t=1599960134',
+    AUTHORTOUXIANG: 'https://7169-qiucheng-js-213aw-1302850511.tcb.qcloud.la/img/system/touxiang.gif?sign=efdb8121969226c345bc4e60aec4291e&t=1597997152',
     // 模板ID
     MATTERTEMPLATE: 'KRaMNBZOZvgpvX350YqctcrBFVDWVKORzeTJXEqJALk',
     HEADTITLE: '顾家',

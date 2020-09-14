@@ -4,7 +4,7 @@
 
 family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented_project
 
-项目
+一、项目
 ---
 该项目是基于微信云开发开发的微信小程序项目，项目主要由微信小程序 + 云数据库 + 云存储 + 云函数组成。  
   
@@ -42,7 +42,8 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 加入家庭：  
 <img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/action2.png?sign=be185b2c99f08e282a1ca52e1ce9c81b&t=1600086817" />
 
-### 部署教程
+二、部署
+---
 <font size=1.5>[注]：微信小程序开通账号、下载工具等基础步骤省略，此处只介绍该项目如何部署。</font>
 
 一、作者开发环境  
@@ -50,7 +51,7 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 :-|:-|:-|:-|:-
 win10|v10.16.3|2.23.0.windows.1|1.04.2009112|vs code
 
-二、云开发主要配置文件  
+二、步骤  
 ```javascript
 // project.config.json
 {
@@ -58,15 +59,38 @@ win10|v10.16.3|2.23.0.windows.1|1.04.2009112|vs code
     cloudfunctionRoot: "cloud/" // 该配置项可修改，文件夹名称自定义
     ...
 }
+```
+2.进入 project.config.json 同级目录下的 cloud 文件夹，在该文件夹中有四个云函数，分别是：export(导出表格)、getopenid(获取用户openid)、help(操作云数据库、云存储)、timer(定时触发器)。分别进入四个云函数，在云函数下，执行：
+```javascript
+npm i // 执行的目的，是用于云函数本地调试
+```
+3.修改环境变量：
+```javascript
+/* 云函数中环境变量修改 */
 
-// 进入 project.config.json 同级目录下的 cloud 文件夹，在该文件夹中有四个云函数，分别是：export(导出表格)、getopenid(获取用户openid)、help(操作云数据库、云存储)、timer(定时触发器)。分别进入四个云函数，在云函数下，执行：
-npm i
+// cloud/export/index.js
+// cloud/getopenid/index.js
+// cloud/help/index.js
+// cloud/timer/index.js
+cloud.init({
+    env: '####' // ### 为你的环境变量
+})
 
+// config/conf.js
+_ENV: '####'
+```
+至此，该项目云开发环境就算搭建完成了。【建议】，将 config/conf.js 中应用到的云存储文件换成自己的云存储：
+```JavaScript
+AUTHORTOUXIANG // 作者头像
+MATTERTEMPLATE // 模板ID
+LOGINGIF // 加载动图
+TOUXIANG // 头像默认
+BACKIMG // 背景默认图片
 ```
 
 
-
-### 文件结构
+三、文件结构
+---
 
 ```shell
 ├─cloud                                // 云项目文件夹
@@ -116,7 +140,8 @@ npm i
 └─utils                                // 工具
 ```
 
-### 数据表结构
+数据表结构
+---
 <font color=#9aa09d>[注]: 表结构中省略 _id、_openid 字段说明，默认为 string 类型，默认值默认为空，默认必填</font>  
 <font color=#07c160>background_img(背景墙)</font> ：
 属性|类型|默认值|必填|说明
