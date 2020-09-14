@@ -23,25 +23,24 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 
 ### 效果图
 事项列表-点击查看、双击编辑、长按删除、左滑定时、置顶、办结：  
-![image](https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/background/background_oQnzV5CezstSe9Dyc-rUVxxf073U_1599653920098.png?sign=943d7ccc8f087c7d2bc24d6d08d89a8c&t=1600086455)  
-<img src="./images/md_img/x1.jpg" width="200" height="400" />
-<img src="./images/md_img/x2.jpg" width="200" height="400" />  
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x1.jpg?sign=fff80145d151b57fed1df025195f2dcd&t=1600086803" width="200" height="400" />
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x2.jpg?sign=7f461d34266fa6472c89b21b28c37ef3&t=1600086794" width="200" height="400" />  
 定时任务设置-选择触发日期及时间，在相应的时间内触发：  
-<img src="./images/md_img/x3.jpg" width="200" height="400" />  
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x3.jpg?sign=5d1d601f44adcec6b88ce192622d78c3&t=1600086777" width="200" height="400" />  
 帮衬-可查询及导出相关报表数据：  
-<img src="./images/md_img/x4.jpg" width="200" height="400" />  
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x4.jpg?sign=48e1ec6877d4acffb6994fde2b30c6d0&t=1600086761" width="200" height="400" />  
 邀请码-生成邀请码，用于邀请家人加入：  
-<img src="./images/md_img/x5.jpg" width="200" height="400" />  
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x5.jpg?sign=9df33ef8daa56237b82b1d788cdf9e2c&t=1600086750" width="200" height="400" />  
 房屋租赁管理：  
-<img src="./images/md_img/x6.jpg" width="200" height="400" />  
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x6.jpg?sign=bdc684cb0923c0974379f6ff5186d0ba&t=1600086727" width="200" height="400" />  
 
 
 ### 主要操作流程
 操作流程可分为家庭管理者、家庭成员。  
 邀请成员：  
-<img src="./images/md_img/action1.png" />  
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/action1.png?sign=02634be05c53402199f9bae3403a61ca&t=1600086834" />  
 加入家庭：  
-<img src="./images/md_img/action2.png" />
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/action2.png?sign=be185b2c99f08e282a1ca52e1ce9c81b&t=1600086817" />
 
 ### 数据表结构
 <font color=#9aa09d>[注]: 表结构中省略 _id、_openid 字段说明，默认为 string 类型，默认值默认为空，默认必填</font>  
