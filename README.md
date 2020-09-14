@@ -42,6 +42,80 @@ family_oriented_project 1.0, 2.0：https://github.com/lidegejing/family_oriented
 加入家庭：  
 <img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/action2.png?sign=be185b2c99f08e282a1ca52e1ce9c81b&t=1600086817" />
 
+### 部署教程
+<font size=1.5>[注]：微信小程序开通账号、下载工具等基础步骤省略，此处只介绍该项目如何部署。</font>
+
+一、作者开发环境  
+操作系统|node|git|微信开发工具|代码开发工具
+:-|:-|:-|:-|:-
+win10|v10.16.3|2.23.0.windows.1|1.04.2009112|vs code
+
+二、云开发主要配置文件  
+```javascript
+// project.config.json
+{
+    ...
+    cloudfunctionRoot: "cloud/" // 该配置项可修改，文件夹名称自定义
+    ...
+}
+
+// 进入 project.config.json 同级目录下的 cloud 文件夹，在该文件夹中有四个云函数，分别是：export(导出表格)、getopenid(获取用户openid)、help(操作云数据库、云存储)、timer(定时触发器)。分别进入四个云函数，在云函数下，执行：
+npm i
+
+```
+
+
+
+### 文件结构
+
+```shell
+├─cloud                                // 云项目文件夹
+│  ├─export                            // 导出
+│  ├─getopenid                         // 获取用户的openid
+│  ├─help                              // 云数据库相关操作
+│  └─timer                             // 定时触发器
+├─colorui                              // colorui 样式
+│  └─components
+├─config                               // 配置文件
+├─images                               // 图片
+├─pages
+│  ├─home                              // 应用主模块
+│  ├─housewifery
+│  │  ├─index                          // 首页主模块
+│  │  └─timer                          // 定时设置
+│  ├─help                              // 帮衬模块
+│  │  └─index
+│  ├─login                             // 登录
+│  ├─logs                              // 日志
+│  ├─manage
+│  │  ├─index                          // 管理主模块
+│  │  ├─member                         // 成员管理
+│  │  ├─rent
+│  │  │  ├─home                        // 租赁管理主模块
+│  │  │  ├─add_edit_detail_renter      // 增加租客信息
+│  │  │  ├─rent_money                  // 房租收取
+│  │  │  └─write_room                  // 房间信息登记
+│  │  └─server                         // 服务
+│  ├─my
+│  │  ├─index                          // 我的主模块
+│  │  ├─author_about                   // 作者
+│  │  ├─background                     // 背景墙
+│  │  ├─create_family                  // 创建家庭
+│  │  ├─invitation_code                // 邀请码
+│  │  └─server                         // 服务
+│  └─publish
+│      ├─index                         // 发布主模块
+│      ├─bill                          // 赞助
+│      ├─matter                        // 事项
+│      ├─physical_examination          // 体检报告
+│      ├─purchase                      // 采购
+│      ├─server                        // 服务
+│      ├─sponsor                       // 账单
+│      └─timer_task                    // 定时任务
+├─styles                               // 公共样式
+└─utils                                // 工具
+```
+
 ### 数据表结构
 <font color=#9aa09d>[注]: 表结构中省略 _id、_openid 字段说明，默认为 string 类型，默认值默认为空，默认必填</font>  
 <font color=#07c160>background_img(背景墙)</font> ：
@@ -394,52 +468,3 @@ optionUserOpenID||||操作人ID
 otherTableID||||事项ID
 timerMatterTableID||||定时人任务ID
 
-### 文件结构
-
-```shell
-├─cloud                                // 云项目文件夹
-│  ├─export                            // 导出
-│  ├─getopenid                         // 获取用户的openid
-│  ├─help                              // 云数据库相关操作
-│  └─timer                             // 定时触发器
-├─colorui                              // colorui 样式
-│  └─components
-├─config                               // 配置文件
-├─images                               // 图片
-├─pages
-│  ├─home                              // 应用主模块
-│  ├─housewifery
-│  │  ├─index                          // 首页主模块
-│  │  └─timer                          // 定时设置
-│  ├─help                              // 帮衬模块
-│  │  └─index
-│  ├─login                             // 登录
-│  ├─logs                              // 日志
-│  ├─manage
-│  │  ├─index                          // 管理主模块
-│  │  ├─member                         // 成员管理
-│  │  ├─rent
-│  │  │  ├─home                        // 租赁管理主模块
-│  │  │  ├─add_edit_detail_renter      // 增加租客信息
-│  │  │  ├─rent_money                  // 房租收取
-│  │  │  └─write_room                  // 房间信息登记
-│  │  └─server                         // 服务
-│  ├─my
-│  │  ├─index                          // 我的主模块
-│  │  ├─author_about                   // 作者
-│  │  ├─background                     // 背景墙
-│  │  ├─create_family                  // 创建家庭
-│  │  ├─invitation_code                // 邀请码
-│  │  └─server                         // 服务
-│  └─publish
-│      ├─index                         // 发布主模块
-│      ├─bill                          // 赞助
-│      ├─matter                        // 事项
-│      ├─physical_examination          // 体检报告
-│      ├─purchase                      // 采购
-│      ├─server                        // 服务
-│      ├─sponsor                       // 账单
-│      └─timer_task                    // 定时任务
-├─styles                               // 公共样式
-└─utils                                // 工具
-```
