@@ -79,6 +79,8 @@ cloud.init({
 // config/conf.js
 _ENV: '####'
 ```
+3.微信开发者工具，点击云开发 -> 选择数据库 ->新建集合名
+  
 至此，该项目云开发环境就算搭建完成了。【建议】，将 config/conf.js 中应用到的云存储文件换成自己的云存储：
 ```JavaScript
 AUTHORTOUXIANG // 作者头像
