@@ -84,3 +84,9 @@ win10 + git + github + vsCode + 微信小程序开发者工具
 开源
 ---
 LICENSE：Apache-2.0 License
+
+联系方式
+---
+QQ邮箱：1829001401@qq.com  
+微信:  
+<img width=200 height=200 src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F.jpg?sign=1cfb401f9ef701cee1d9132ea1c2d9eb&t=1600502374">
