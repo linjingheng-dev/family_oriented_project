@@ -23,7 +23,15 @@ win10 + git + github + vsCode + 微信小程序开发者工具
 用户 -> 创建家庭 -> 分享给其他用户 -> 其他用户加入家庭  
 [注]：创建者和加入者均可操作公示数据
 
-### 三、文件结构  
+### 效果图
+<img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x3.jpg?sign=56007ecae2ca6b7f4ab80d7d2fa18cdb&t=1600495715">
+<img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x2.jpg?sign=feaa78320968999a2f737e529869f9a9&t=1600495383">
+<img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x6.jpg?sign=48326ddd8c66a7a282c222148abfd26f&t=1600495417">
+<img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x7.jpg?sign=db47d22f92a38619792d8b947aa29092&t=1600495425">
+<img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x8.jpg?sign=fcdd2fc6c86c65933f5dd3d125e09443&t=1600495433">
+<img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x11.jpg?sign=ff7a399c33459611c60fae3600e09a2d&t=1600495602">
+
+### 六、文件结构  
 ```javascript
 ├─cloud                              // 云函数
 │  ├─export                          // 导出
