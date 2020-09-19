@@ -11,6 +11,7 @@
 MATTERTEMPLATE: '###' // 能正常使用的模板
 
 /* 修改云函数中推送消息配置 */
+// cloud/timer/index.js
 // 方法名
 pushMsgToSubscribeUserFn
 // 修改方法
