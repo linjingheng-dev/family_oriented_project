@@ -169,11 +169,11 @@ Page({
             params['modifyDate'] = moment().valueOf()
             params['modifyUser'] = app.globalData.userInfo.nickName
             params['modifyOpenid'] = app.globalData.openid
-            params['isLeave'] = false
         } else {
             params['createDate'] = moment().valueOf()
             params['createUser'] = app.globalData.userInfo.nickName
             params['createOpenid'] = app.globalData.openid
+            params['isLeave'] = false
         }
         const errMsg = this.judgeMustInputFn(params)
         if (errMsg && errMsg.length) {
@@ -213,6 +213,7 @@ Page({
     },
     // 保存数据
     saveDataFn(data) {
+        console.log('交租>>>', data, this.data.isEdit)
         const that = this
         if (this.data.isEdit) {
             service.addEditSearchProject('rent_get_money', data, { _id: this.data['_id'] }, 1).then(values => {
@@ -245,6 +246,7 @@ Page({
                 this.setData({
                     isShow: false
                 })
+                console.log('添加成功>>>', values)
                 if (values['code'] === 0) {
                     util.showToast('success', '添加成功')
                     const eventChannel = this.getOpenerEventChannel()

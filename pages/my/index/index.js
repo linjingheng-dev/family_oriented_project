@@ -90,6 +90,7 @@ Component({
                 wx.removeStorageSync('joinFamily')
                 this.getFamilFn(code)
             }
+            this.inviteCode(code)
         },
 
         /* 获取背景图片的相关操作 */

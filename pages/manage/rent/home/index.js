@@ -340,6 +340,7 @@ Page({
             searchData['familyID'] = app.globalData.joinFamily['joinFamilyID']
             searchData['isLeave'] = false
         }
+        console.log('收租>>>', params, dateQj)
         const rentObj = await this.search('rent_get_money', params, [{ filed: 'getRentMoneyDateTimestamp', sortDesc: 'desc' }], dateQj)
         const data = rentObj['code'] === 0 && rentObj['data'].length ? rentObj['data'] : []
         let haveRent = 0

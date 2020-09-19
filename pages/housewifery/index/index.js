@@ -590,6 +590,7 @@ Component({
         // 消息订阅
         subscriptionFn() {
             const currentData = wx.getStorageSync('matterKey')
+            console.log('模板调用>>>', currentData)
             const that = this
             wx.removeStorageSync('matterKey')
             wx.requestSubscribeMessage({

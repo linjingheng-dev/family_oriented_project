@@ -91,14 +91,14 @@ async function pushMsgToSubscribeUserFn(data, matterID) {
             templateId: data['templateID'],
             miniprogramState: 'developer', // 跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版
             data: {
-                thing2: {
-                    value: data['shortName'] || '--'
-                },
-                date3: {
+                time6: {
                     value: data['taskEDate'] || '--'
                 },
                 name1: {
                     value: data['lastEditUser'] || '--'
+                },
+                thing2: {
+                    value: data['shortName'] || '--'
                 }
             }
         })

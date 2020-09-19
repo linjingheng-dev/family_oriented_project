@@ -2,7 +2,7 @@ module.exports = {
     // 作者头像
     AUTHORTOUXIANG: 'https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/system/user.png? sign=3c17dcc265a121a44f80ea75fa4e10c2&t=1599960134',
     // 模板ID
-    MATTERTEMPLATE: 'KRaMNBZOZvgpvX350YqctcrBFVDWVKORzeTJXEqJALk',
+    MATTERTEMPLATE: 'zCsWov0s9bMW21Tr7mVbEeUE0OavqqHXGMne5W3VF84',
     HEADTITLE: '顾家',
     LOGINGIF: 'https://7169-qiucheng-js-213aw-1302850511.tcb.qcloud.la/img/a_meng.gif?sign=165c8cd6e8b42a4f273653583ebab935&t=1597671345',
     FORMERROR: 'https://7169-qiucheng-js-213aw-1302850511.tcb.qcloud.la/img/system/form_error.gif?sign=06cb1fdc0e7c468c20125590416a4635&t=1597909589',
@@ -14,7 +14,7 @@ module.exports = {
     // 头像
     TOUXIANG: 'https://7169-qiucheng-js-213aw-1302850511.tcb.qcloud.la/img/system/touxiang.gif?sign=efdb8121969226c345bc4e60aec4291e&t=1597997152',
     // 默认背景墙
-    BACKIMG: 'https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/system/background_default.png?sign=cd5557c47c6d464ccc2c0a6245361dc8&t=1599882622',
+    BACKIMG: 'https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/background/background_oQnzV5CezstSe9Dyc-rUVxxf073U_1600480794574.png?sign=9b678f8798cb842c5ca0cdb813ce4f7e&t=16005071792',
     // 云环境
     _ENV: 'qiucheng-afgeg', // 'qiucheng-js-213aw',
     // 发布菜单配置

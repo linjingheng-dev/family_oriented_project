@@ -109,14 +109,7 @@ function cloudDataH(res, successMsg, errmsg) {
     }
 }
 
-/**
- * @description 上传图片
- * @author 林景恒
- * @date 2020-09-19
- * @param {*} [imgList=[]]
- * @param {*} imgSrc -上传路径
- * @returns {Promise}
- */
+// 上传图片
 function uploadFile(imgList = [], imgSrc) {
     const savePromise = []
     for (let i = 0; i < imgList.length; i++) {
@@ -132,6 +125,7 @@ function uploadFile(imgList = [], imgSrc) {
                     cloudPath: `${imgSrc}_${(new Date()).valueOf()}.png`,
                     filePath: imgList[i],
                     success: res => {
+                        console.log('上传图片成功', res)
                         if (res['errMsg'] === conf.IMGSUCCESS) {
                             resolve({
                                 code: 0,
@@ -159,13 +153,7 @@ function uploadFile(imgList = [], imgSrc) {
     return Promise.all(savePromise)
 }
 
-/**
- * @description 计算周岁
- * @author 林景恒
- * @date 2020-09-19
- * @param {string} birthDate 出生日期，格式 YYYY-MM-DD
- * @returns {string}
- */
+// 计算周岁
 function accountAgeFn(birthDate) {
     const birthY = moment(birthDate, 'YYYY-MM-DD').format('Y')
     const birthM = moment(birthDate, 'YYYY-MM-DD').format('M')
@@ -181,9 +169,9 @@ function accountAgeFn(birthDate) {
  * @description 数组对象排序
  * @author 林景恒
  * @date 2020-08-24
- * @param {string} attr 属性值
- * @param {number} sortsO 0 -降序、1 -升序
- * @returns {Function}
+ * @param {*} attr 属性值
+ * @param {*} sortsO 0 -降序、1 -升序
+ * @returns 
  */
 function arrayObjectSort(attr, sortsO) {
     return function (object1, object2) {
@@ -202,17 +190,11 @@ function arrayObjectSort(attr, sortsO) {
 // 是否有家庭信息
 function getFamily() {
     const family = wx.getStorageSync('joinFamily')
+    console.log('家庭信息>>>', family)
     return family ? true : false
 }
 
-
-/**
- * @description 删除云存储
- * @author 林景恒
- * @date 2020-09-01
- * @param {array} data 文件 ID
- * @returns {Promise}
- */
+// 删除云存储
 function delColudFile(data) {
     return new Promise(resolve => {
         wx.cloud.deleteFile({
