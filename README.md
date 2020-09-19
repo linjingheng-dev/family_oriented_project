@@ -3,6 +3,7 @@
 [注]：  
 1. 该小程序样式风格借鉴了 [ColorUI](https://www.color-ui.com/)
 2. 开发者：秋城与星辰大海
+3. [查看图片配置](https://zhuanlan.zhihu.com/p/107196957)
 
 项目介绍
 ---
