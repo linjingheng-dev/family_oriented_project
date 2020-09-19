@@ -4,6 +4,29 @@
 1. 该小程序样式风格借鉴了 [ColorUI](https://www.color-ui.com/)
 2. 开发者：秋城与星辰大海
 3. [查看图片配置](https://zhuanlan.zhihu.com/p/107196957)
+4. 如果出现订阅消息失败，可以修改配置文件中的模板ID，并在云函数中修改传参除了
+```javascript
+/* 修改配置文件 */
+// config/conf.js
+MATTERTEMPLATE: '###' // 能正常使用的模板
+
+/* 修改云函数中推送消息配置 */
+// 方法名
+pushMsgToSubscribeUserFn
+// 修改方法
+data: {
+    time6: {
+        value: data['taskEDate'] || '--' // 日期
+    },
+    name1: {
+        value: data['lastEditUser'] || '--' // 最后一次编辑人
+    },
+    thing2: {
+        value: data['shortName'] || '--' // 内容
+    }
+}
+// 将 time6、name1、thing2 替换成模板中的变量
+```
 
 项目介绍
 ---
