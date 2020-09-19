@@ -6,7 +6,7 @@
 
 1. 在 GitHub 上 Fork 项目到自己的账号下
 2. Clone 已经 forked 的仓库到你自己开发的电脑上
-3. 参考 README.md 文件中的部署教程
+3. 参考 [deployment.md](deployment.md) 文件中的部署教程
 
 ## 协作开发
 
