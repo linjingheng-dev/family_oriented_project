@@ -55,7 +55,7 @@ Component({
 
         getUserInfo(e) {
             if (e.detail.errMsg !== 'getUserInfo:ok') {
-                return utils.showToast('none', '当前还未登录')
+                return
             }
             console.log('进入>>>')
             app.globalData.userInfo = e.detail.userInfo
@@ -86,7 +86,6 @@ Component({
                 }
             } else if (!code) {
                 wx.removeStorageSync('joinFamily')
-                utils.showToast('none', `您当前还未加入家庭！`, 1500)
             } else {
                 wx.removeStorageSync('joinFamily')
                 this.getFamilFn(code)
@@ -176,15 +175,46 @@ Component({
                 ['codeObj.code']: code
             })
             if (!app.globalData.userInfo) {
-                return utils.showToast('none', `您当前还未授权登录！`, 1500)
+                return
             }
+            const familyID = await this.getCodeInfoFn(code)
+            console.log('邀请码信息>>>>>>', familyID)
+            if (familyID) {
+                const isJoin = await this.judgeJoinFamilyFn(familyID)
+                if (!isJoin) {
+                    this.joinFamilyFn(code)
+                }
+            } else {
+                this.joinFamilyFn(code)
+            }
+        },
+        // 邀请码关联的家庭信息
+        async getCodeInfoFn(code) {
+            const codeInfoObj = await this.search('publish/inviteCode', 'invitation_code', {code: code})
+            const data = codeInfoObj['code'] === 0 && codeInfoObj['data'].length ? codeInfoObj['data'] : []
+            return data.length ? data[0]['familyID'] : null
+        },
+        // 判断是否加入家庭
+        async judgeJoinFamilyFn(familyId) {
+            const params = {
+                inviteeID: app.globalData.openid,
+                joinFamilyID: familyId
+            }
+            const familyInfoObj = await this.search('publish/inviteCode', 'inviation_user', params)
+            const data = familyInfoObj['code'] === 0 && familyInfoObj['data'].length ? familyInfoObj['data'] : []
+            return data.length ? true : false
+        },
+        // 加入家庭
+        async joinFamilyFn(code) {
             const searchData = { code: code, inviteeID: app.globalData.openid }
             const inviteCodeObj = await this.search('publish/inviteCode', 'inviation_user', searchData)
             const data = inviteCodeObj['code'] === 0 && inviteCodeObj['data'].length ? inviteCodeObj['data'] : []
+            console.log('再次加入？', data)
             if (!data.length) {
                 this.getFamilFn(code)
             }
         },
+        // 家庭信息
         async getFamilFn(code) {
             const params = { code: code }
             const result = await this.search('publish/inviteCode', 'invitation_code', params)
@@ -201,6 +231,7 @@ Component({
                     (code ? true : false)
             })
         },
+        // 加入家庭相相关操作
         async addActionFn(e) {
             const type = e.currentTarget.dataset.flag
             if (type === '0') {
@@ -235,6 +266,7 @@ Component({
                 }
             }
         },
+        // 添加记录
         addItem(connectionName, data) {
             return service.addZhanDFn(data, connectionName).then(values => {
                 if (values['code'] === 0) {

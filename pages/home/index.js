@@ -42,9 +42,9 @@ Page({
         console.log('每一次打开>>>', family, '====', userInfoMsg, '+++')
         this.getDataFn(app.globalData.isComponent)
         if (!userInfoMsg) {
-            return utils.showToast('none', `您当前还未登录！`, 3000)
+            return
         } else if (!family) {
-            return utils.showToast('none', `您当前还未加入家庭！`, 3000)
+            return
         }
         app.globalData.joinFamily = family
     },
