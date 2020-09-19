@@ -152,6 +152,28 @@ async function setTimerFn(ctx, next) {
     }
 }
 
+// 批量更新
+async function batchFn(ctx, next) {
+    try {
+        const DB = cloud.database()
+        const bodyData = ctx['_req']['event']
+        const collection = DB.collection(bodyData['connectionName'])
+        const searchData = bodyData['param']
+        const data = bodyData['data']
+        const result = bodyData['flag'] === 0 ? await collection.where(searchData).update({data: data}) :
+            await collection.update({data: data})
+        console.log('批量更新>>>', bodyData['flag'], searchData, data, result)
+        if (result && result['errMsg'] === 'collection.update:ok') {
+            successRes(ctx, result['data'] || [])
+        } else {
+            errorRes(ctx, '更新失败，稍后重试，可以给开发者留言，^_^')
+        }
+    } catch (err) {
+        console.log('更新数据出错', err)
+        errorRes(ctx, err || '更新失败，稍后重试，可以给开发者留言，^_^')
+    }
+}
+
 // 云函数入口函数
 exports.main = async (event, context) => {
     // 初始化路由
@@ -168,6 +190,7 @@ exports.main = async (event, context) => {
     app.router('publish/inviteCode', inviteCode);
     app.router('publish/help', insertSponsorData);
     app.router('publish/getData', getData);
+    app.router('publish/batch', batchFn);
     app.router('publish/pagingSearch', pagingSearch);
     app.router('publish/setTimer', setTimerFn);
     return app.serve()

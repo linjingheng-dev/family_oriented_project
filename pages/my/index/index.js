@@ -28,6 +28,9 @@ Component({
         }
     },
     attached() {
+        this.setData({
+            backgroundImg : wx.getStorageSync('backImg') || conf.BACKIMG
+        })
         if (app.globalData.userInfo) {
             console.log('进入1>>')
             this.setValueFn()
@@ -71,16 +74,21 @@ Component({
             const joinObj = await this.getIsInviteFn()
             console.log('加入的家族>>>', joinObj)
             const code = wx.getStorageSync('inviteCode')
-            wx.removeStorageSync('joinFamily')
+            const currentFamliy = wx.getStorageSync('joinFamily')
             if (joinObj['code'] === 0) {
-                app.globalData.joinFamily = { joinFamilyID: joinObj['data']['joinFamilyID'], joinFamilyName: joinObj['data']['joinFamilyName'] }
-                wx.setStorage({
-                    key: 'joinFamily',
-                    data: app.globalData.joinFamily
-                })
+                if (!currentFamliy) {
+                    wx.removeStorageSync('joinFamily')
+                    app.globalData.joinFamily = { joinFamilyID: joinObj['data']['joinFamilyID'], joinFamilyName: joinObj['data']['joinFamilyName'] }
+                    wx.setStorage({
+                        key: 'joinFamily',
+                        data: app.globalData.joinFamily
+                    })
+                }
             } else if (!code) {
+                wx.removeStorageSync('joinFamily')
                 utils.showToast('none', `您当前还未加入家庭！`, 1500)
             } else {
+                wx.removeStorageSync('joinFamily')
                 this.getFamilFn(code)
             }
         },
@@ -120,6 +128,12 @@ Component({
                         wx.cloud.getTempFileURL({
                             fileList: [values['data'][0]['imgFileId']],
                             success: res => {
+                                const backImg = res && res.fileList && res.fileList.length && values['data'][0]['imgFileId'] ? res.fileList[0]['tempFileURL'] : conf.STATICIMG
+                                wx.removeStorageSync('backImg')
+                                wx.setStorage({
+                                    key: 'backImg',
+                                    data: backImg
+                                })
                                 that.setData({
                                     isShowGif: values['data'][0]['imgFileId'] ? true : false,
                                     backgroundImg: res && res.fileList && res.fileList.length && values['data'][0]['imgFileId'] ? res.fileList[0]['tempFileURL'] : conf.STATICIMG

@@ -44,14 +44,14 @@ Component({
         windowHeight: 0,
     },
     attached() {
-        this.setData({
+        const that = this;
+        that.setData({
             CustomBar: app.globalData.CustomBar,
             isHaveFamily: utils.getFamily()
         })
-        if (!this.data.isHaveFamily) {
+        if (!that.data.isHaveFamily) {
             return utils.showToast('none', `您尚未加入家庭！`, 1500)
         }
-        const that = this;
         wx.getSystemInfo({
             success: function (res) {
                 that.setData({
@@ -59,10 +59,11 @@ Component({
                 })
             }
         })
-        const timer = setTimeout(() => {
-            that.init()
-            clearTimeout(timer)
-        }, 1500)
+        // const timer = setTimeout(() => {
+        //     that.init()
+        //     clearTimeout(timer)
+        // }, 1500)
+        that.init()
     },
     methods: {
         // 组件刷新数据

@@ -1,6 +1,7 @@
 const service = require('./../../publish/server/index')
 const utils = require('./../../../utils/util')
 const moment = require('./../../../utils/moment.min')
+const util = require('./../../../utils/util')
 const app = getApp()
 
 let clickNum = 0
@@ -19,6 +20,7 @@ Page({
         isSelect: false,
         prevData: null,
         familyList: [],
+        familyObj: {},
         currentFamilyID: null,
         creatObj: {
             isEdit: false,
@@ -76,10 +78,14 @@ Page({
             }
             i['desc'] = isTrue ? `于${i['joinDate']}加入` : `${i['createUser']}于${i['createDate']}创建`
         })
-        console.log('家族列表>>>', data)
-        this.setData({
-            familyList: data
+        data.forEach(i => {
+            this.data.familyObj[i['name']] = true;
         })
+        this.setData({
+            familyList: data,
+            familyObj: this.data.familyObj
+        })
+        console.log('家庭列表>>>', data, this.data.familyObj)
     },
     // 创建家庭
     addFamilyFn() {
@@ -113,8 +119,12 @@ Page({
         if (type === '0') {
             this.resetFormFn(0)
         } else {
+            if (this.data.familyObj[this.data.creatObj['name']]) {
+                return util.showToast('none', '您已创建了同名的家庭名称！')
+            }
             let creatObj
             if (this.data.creatObj['isEdit']) {
+                const _id = this.data.creatObj['_id']
                 const params = {
                     name: this.data.creatObj['name'],
                     modifyDate: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -122,8 +132,13 @@ Page({
                     modifyUser: app.globalData.userInfo.nickName,
                     modifyOpenid: app.globalData.openid
                 }
-                creatObj = await this.editDataFn(this.rturnTableNameFn(), params, { _id: this.data.creatObj['_id'] }, true)
-                console.log('编辑>>>', creatObj)
+                creatObj = await this.editDataFn(this.rturnTableNameFn(), params, { _id: _id }, true)
+                console.log('编辑1>>>', creatObj)
+                if (creatObj['code'] === 0) {
+                    this.resetFormFn(0)
+                    this.getMyFamilyFn()
+                    this.editFamilyFn({familyId: _id, familyName: params['name']})
+                }
             } else {
                 const params = {
                     name: this.data.creatObj['name'],
@@ -134,12 +149,42 @@ Page({
                 }
                 creatObj = await this.addItem(this.rturnTableNameFn(), params, true)
                 console.log('新增>>>', creatObj)
-            }
-            if (creatObj['code'] === 0) {
-                this.resetFormFn(0)
-                this.getMyFamilyFn()
+                if (creatObj['code'] === 0) {
+                    this.resetFormFn(0)
+                    this.getMyFamilyFn()
+                    this.joinFamilyFn({familyId: creatObj['data'], familyName: params['name']})
+                }
             }
         }
+    },
+    // 创建家庭后自动加入家庭
+    joinFamilyFn(obj) {
+        if (!obj['familyId']) {
+            return util.showToast('none', '加入家庭失败！')
+        }
+        const params = {
+            inviterID: app.globalData.openid,
+            inviterName: app.globalData.userInfo['nickName'],
+            code: '',
+            joinFamilyID: obj['familyId'],
+            joinFamilyName: obj['familyName'],
+            inviteeID: app.globalData.openid,
+            inviteeName: app.globalData.userInfo['nickName'],
+            joinDate: moment().format('YYYY-MM-DD HH:mm:ss'),
+            joinTimestamp: moment().valueOf()
+        }
+        this.addItem('inviation_user', params, false, '加入家庭')
+    },
+    // 编辑家庭名称
+    editFamilyFn(obj) {
+        console.log('编辑>>>', obj)
+        const data = {
+            joinFamilyName: obj['familyName'],
+            modifyOpenId: app.globalData.openid,
+            modifyUser: app.globalData.userInfo.nickName,
+            modifyDate: moment().format('YYYY-MM-DD HH:mm:ss')
+        }
+        this.batchUpdateDataFn('inviation_user', { joinFamilyID: obj['familyId'] }, data, '家庭')
     },
     // 表单重置
     resetFormFn(flag = 0) {
@@ -155,7 +200,7 @@ Page({
         }
     },
     // 保存数据
-    addItem(connectionName, data, isReturn = false, fn = null) {
+    addItem(connectionName, data, isReturn = false, str = '添加') {
         this.setData({
             isShow: true,
             loadingText: '上传数据中'
@@ -165,29 +210,27 @@ Page({
                 isShow: false
             })
             if (values['code'] === 0) {
-                utils.showToast('success', '添加成功')
-                if (fn) {
-                    fn()
-                }
+                utils.showToast('success', `${str}成功`)
             } else {
-                utils.showToast('none', values['msg'] || '添加失败')
+                utils.showToast('none', values['msg'] || `${str}失败`)
             }
             if (isReturn) {
                 return {
                     code: values['code'],
+                    data: values['data'] ? values['data'] : null,
                     msg: 'success'
                 }
             }
         }).catch(err => {
             console.log('添加失败>>>', err)
-            utils.showToast('none', '添加失败')
+            utils.showToast('none', `${str}失败`)
             this.setData({
                 isShow: false
             })
             if (isReturn) {
                 return {
                     code: -1,
-                    msg: '添加失败'
+                    msg: `${str}失败`
                 }
             }
         })
@@ -196,23 +239,20 @@ Page({
         }
     },
     // 编辑数据
-    editDataFn(connectionName, data, only, isReturn = false, fn = null) {
+    editDataFn(connectionName, data, only, isReturn = false, str = '编辑', isBatch = false) {
         const that = this
         this.setData({
             isShow: true,
             loadingText: '上传数据中'
         })
-        const result = service.addEditSearchProject(connectionName, data, only, 1).then(values => {
+        const result = service.addEditSearchProject(connectionName, data, only, isBatch ? 4 : 1).then(values => {
             that.setData({
                 isShow: false
             })
             if (values['code'] === 0) {
-                utils.showToast('success', '编辑成功')
-                if (fn) {
-                    fn()
-                }
+                utils.showToast('success', `${str}成功`)
             } else {
-                utils.showToast('none', values['msg'] || '编辑失败')
+                utils.showToast('none', values['msg'] || `${str}失败`)
             }
             if (isReturn) {
                 return {
@@ -222,20 +262,54 @@ Page({
             }
         }).catch(err => {
             console.log('编辑失败>>>', err)
-            utils.showToast('none', '编辑失败')
+            utils.showToast('none', `${str}失败`)
             that.setData({
                 isShow: false
             })
             if (isReturn) {
                 return {
                     code: -1,
-                    msg: '编辑失败'
+                    msg: `${str}失败`
                 }
             }
         })
         if (isReturn) {
             return result
         }
+    },
+    // 批量更新
+    batchUpdateDataFn(collectionName, param, data, str = '') {
+        const params = {
+            $url: 'publish/batch',
+            flag: param ? 0 : 1,
+            connectionName: collectionName,
+            data: data,
+            param: param
+        }
+        return utils.cloudFn('help', params).then(values => {
+            const res = utils.cloudDataH(values, `更新${str}成功`, `更新${str}失败`)
+            console.log('批量更新>>', values, res)
+            if (res['code'] !== 0) {
+                utils.showToast('none', res['msg'])
+                return {
+                    code: -1
+                }
+            } else {
+                return {
+                    code: 0,
+                    data: res['data']
+                }
+            }
+        }).catch(err => {
+            this.setData({
+                isShow: false
+            })
+            console.log(`更新${str}数据失败`, err)
+            utils.showToast('none', `更新${str}数据失败`)
+            return {
+                code: -1
+            }
+        })
     },
     // 查询数据
     search(collectionName, value, sort = null, dateQj = null) {

@@ -69,6 +69,11 @@ Page({
                         if (values['code'] === 0) {
                             utils.showToast('success', '上传图片成功！')
                             utils.returnToCFromP('my')
+                            wx.removeStorageSync('backImg')
+                            wx.setStorage({
+                                key: 'backImg',
+                                data: res.fileID
+                            })
                             wx.navigateBack()
                         } else {
                             utils.showToast('success', values['msg'] ? values['msg'] : '上传图片成功！')

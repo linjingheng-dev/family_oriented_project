@@ -1,6 +1,6 @@
 module.exports = {
     // 作者头像
-    AUTHORTOUXIANG: 'https://7169-qiucheng-js-213aw-1302850511.tcb.qcloud.la/img/system/touxiang.gif?sign=efdb8121969226c345bc4e60aec4291e&t=1597997152',
+    AUTHORTOUXIANG: 'https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/system/user.png? sign=3c17dcc265a121a44f80ea75fa4e10c2&t=1599960134',
     // 模板ID
     MATTERTEMPLATE: 'KRaMNBZOZvgpvX350YqctcrBFVDWVKORzeTJXEqJALk',
     HEADTITLE: '顾家',
@@ -24,7 +24,7 @@ module.exports = {
         {icon: 'attentionfavorfill', color: 'red', title: '体检', url: '/pages/publish/physical_examination/index', id: 2 },
         {icon: 'tagfill', color: 'cyan', title: '事项', url: '/pages/publish/matter/index', id: 3 },
         {icon: 'writefill', color: 'orange', title: '采购', url: '/pages/publish/purchase/index', id: 4 },
-        {icon: 'timefill', color: 'blue', title: '定时任务', url: '/pages/publish/timer_task/index', id: 4 }
+        // {icon: 'timefill', color: 'blue', title: '定时任务', url: '/pages/publish/timer_task/index', id: 4 }
         // {icon: 'emojifill', color: 'blue', title: '出游', url: '', id: 5 }, // 属于事项
         // {icon: 'communityfill', color: 'pink', title: '会议', url: '', id: 6 }, // 属于事项
         // {icon: 'shopfill', color: 'brown', title: '聚餐', url: '', id: 7 } // 属于事项
@@ -36,7 +36,8 @@ module.exports = {
     MANAGEMENU: [
         {icon: 'peoplefill', color: 'olive', title: '家庭成员', url: '/pages/manage/member/index', id: 0 },
         // {icon: 'moneybagfill', color: 'yellow', title: '生意', url: '', id: 1 },
-        {icon: 'goodsnewfill', color: 'red', title: '房屋租赁', url: '/pages/manage/rent/home/index', id: 2 }
+        {icon: 'goodsnewfill', color: 'red', title: '房屋租赁', url: '/pages/manage/rent/home/index', id: 2 },
+        {icon: 'timefill', color: 'blue', title: '定时任务', url: '/pages/publish/timer_task/index', id: 3 }
     ],
     // 体检结果
     TJRESULT: ['体检正常', '休息调养', '定期检查', '住院观察'],

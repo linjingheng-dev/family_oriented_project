@@ -178,14 +178,15 @@ Page({
     },
     // 查询
     search(collectionName, value) {
+        const param = {familyID: app.globalData.joinFamily['joinFamilyID']}
+        if (value) {
+            param['xm'] = value
+        }
         const params = {
             $url: 'publish/getData',
-            flag: value ? 0 : 1, // 0 -指定查询、1 -全查
+            flag: 0, // 0 -指定查询、1 -全查
             connectionName: collectionName,
-            data: {
-                xm: value || '',
-                familyID: app.globalData.joinFamily['joinFamilyID']
-            }
+            data: param
         }
         console.log('成员查询参数>>>', params)
         this.setData({
@@ -193,6 +194,7 @@ Page({
             loadingText: '加载中'
         })
         utils.cloudFn('help', params).then(values => {
+            console.log('成员', values)
             this.setData({
                 isShow: false
             })

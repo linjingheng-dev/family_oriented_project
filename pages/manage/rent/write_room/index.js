@@ -151,7 +151,7 @@ Page({
         detailList.forEach((i, index) => {
             i['value'] = data[`detail${index}`]
             i['num'] = data[`num${index}`],
-            i['trademark'] = ''
+                i['trademark'] = ''
         })
         const params = {
             familyID: app.globalData.joinFamily['joinFamilyID'],
@@ -165,11 +165,11 @@ Page({
         if (this.data.isEdit) {
             params['modifyDate'] = moment().valueOf()
             params['modifyUser'] = app.globalData.userInfo.nickName
-            params['modifyOpenid'] = app.globalData.openid   
+            params['modifyOpenid'] = app.globalData.openid
         } else {
             params['createDate'] = moment().valueOf()
             params['createUser'] = app.globalData.userInfo.nickName
-            params['createOpenid'] = app.globalData.openid       
+            params['createOpenid'] = app.globalData.openid
         }
         const errMsg = this.judgeMustInputFn(params)
         if (errMsg && errMsg.length) {
@@ -183,6 +183,15 @@ Page({
             isShow: true
         })
         this.saveDataFn(params)
+    },
+    reset() {
+        this.setData({
+            ['roomObj.roomNum']: null,
+            ['roomObj.peopleNum']: 1,
+            ['roomObj.isRentIndex']: '0',
+            ['roomObj.detailList']: [],
+            ['roomObj.remark']: null,
+        })
     },
     // 判断必填项
     judgeMustInputFn(data) {
@@ -228,12 +237,12 @@ Page({
                 })
             })
         } else {
-			service.addZhanDFn(data, 'renting_room').then(values => {
-				that.setData({
-					isShow: false
-				})
-				if (values['code'] === 0) {
-					util.showToast('success', '添加成功')
+            service.addZhanDFn(data, 'renting_room').then(values => {
+                that.setData({
+                    isShow: false
+                })
+                if (values['code'] === 0) {
+                    util.showToast('success', '添加成功')
                     const eventChannel = that.getOpenerEventChannel()
                     const timer = setTimeout(() => {
                         wx.navigateBack({
@@ -242,17 +251,17 @@ Page({
                         eventChannel.emit('refresh', { flag: that.data.currentTab });
                         clearTimeout(timer)
                     }, 1500)
-				} else {
-					util.showToast('none', values['msg'] || '添加失败')
+                } else {
+                    util.showToast('none', values['msg'] || '添加失败')
                     console.log('添加失败>>>', values['msg'] || '添加失败')
-				}
-			}).catch(err => {
-				console.log('添加失败>>>', err)
-				util.showToast('none', '添加失败')
-				that.setData({
-					isShow: false
-				})
-			})
+                }
+            }).catch(err => {
+                console.log('添加失败>>>', err)
+                util.showToast('none', '添加失败')
+                that.setData({
+                    isShow: false
+                })
+            })
         }
     }
 })

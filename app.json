@@ -21,7 +21,8 @@
     "pages/manage/rent/write_room/index",
     "pages/my/invitation_code/index",
     "pages/my/create_family/index",
-    "pages/my/author_about/index"
+    "pages/my/author_about/index",
+    "pages/my/about_project/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
