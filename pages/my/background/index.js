@@ -50,6 +50,9 @@ Page({
         })
     },
     uploadImg() {
+        if (!app.globalData.userInfo) {
+            return utils.showToast('none', '请先授权登录后操作')
+        }
         const that = this
         wx.cloud.uploadFile({
             cloudPath: `img/background/background_${that.data.openid}_${(new Date()).valueOf()}.png`,
