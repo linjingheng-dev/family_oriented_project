@@ -124,7 +124,13 @@ Page({
     },
     // 项目查询
     searchProjectFn(value = '') {
-        this.search(1, 'bill_deatil', value ? {xmmc: value} : {})
+        const params = {
+            familyID: app.globalData.joinFamily['joinFamilyID']
+        }
+        if (value) {
+            params['xmmc'] = value
+        }
+        this.search(1, 'bill_deatil', params)
     },
     // 项目表单重置
     projectFormReset() {
@@ -154,7 +160,13 @@ Page({
     },
     // 成员查询
     memberSearch(value = '') {
-        this.search(0, 'bill_member', value ? {xm: value} : {})
+        const params = {
+            familyID: app.globalData.joinFamily['joinFamilyID']
+        }
+        if (value) {
+            params['xm'] = value
+        }
+        this.search(0, 'bill_member', params)
     },
     // 成员表单重置
     memberFormReset() {
@@ -182,6 +194,7 @@ Page({
             loadingText: '上传数据中'
         })
         const sObj = flag === 0 ? { xm: params['xm'] } : { xmmc: params['xmmc'] }
+        sObj['familyID'] = params['familyID']
         service.addEditSearchProject(collectionName, params, sObj, 0).then(values => {
             this.setData({
                 isShow: false
