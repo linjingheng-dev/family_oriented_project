@@ -55,9 +55,11 @@ Page({
             i['validity'] = currentDate - Number(moment(i['createDate'], 'YYYY-MM-DD HH:mm:ss').format('YYYYMMDD')) > 1 ? false : true
             i['tabList'] = [
                 { name: `${i['validity'] ? '邀请码有效' : '邀请码过期'}`, color: `${i['validity'] ? 'green' : 'red'}` },
-                { name: `家庭：${i['familyName']}`, color: 'blue' },
-                { name: `标签：${i['tag']}`, color: 'orange' }
+                { name: `家庭：${i['familyName']}`, color: 'blue' }
             ]
+            if (i['tag']) {
+                i['tabList'].push({ name: `标签：${i['tag']}`, color: 'orange' })
+            }
         });
         this.setData({
             codeList: data
