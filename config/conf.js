@@ -14,7 +14,7 @@ module.exports = {
     // 头像
     TOUXIANG: 'https://7169-qiucheng-js-213aw-1302850511.tcb.qcloud.la/img/system/touxiang.gif?sign=efdb8121969226c345bc4e60aec4291e&t=1597997152',
     // 默认背景墙
-    BACKIMG: 'https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/background/background_oQnzV5CezstSe9Dyc-rUVxxf073U_1600480794574.png?sign=9b678f8798cb842c5ca0cdb813ce4f7e&t=16005071792',
+    BACKIMG: 'https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/bkimage.jpg?sign=2e1ab391cdcca667eb9ed9ab7a41e541&t=1600566066',
     // 云环境
     _ENV: 'qiucheng-afgeg', // 'qiucheng-js-213aw',
     // 发布菜单配置
