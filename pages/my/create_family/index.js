@@ -64,6 +64,9 @@ Page({
         return this.data.isCreate === '1' ? 'family_info' : 'inviation_user'
     },
     async getMyFamilyFn() {
+        if (!app.globalData.userInfo) {
+            return
+        }
         const isTrue = this.data.isCreate === '0'
         let params = { createOpenid: app.globalData.openid }
         let sortParams = [{ filed: 'createDateTimestamp', sortDesc: 'desc' }]
@@ -120,6 +123,9 @@ Page({
         if (type === '0') {
             this.resetFormFn(0)
         } else {
+            if (!app.globalData.userInfo) {
+                return util.showToast('none', '请先授权登录后操作')
+            }
             if (this.data.familyObj[this.data.creatObj['name']]) {
                 return util.showToast('none', '您已创建了同名的家庭名称！')
             }
