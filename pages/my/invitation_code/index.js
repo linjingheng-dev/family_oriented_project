@@ -45,6 +45,9 @@ Page({
     },
     // 列表
     async getCodeListFn() {
+        if (!app.globalData.userInfo) {
+            return
+        }
         const rentObj = await this.search('invitation_code', { createOpenid: app.globalData.openid }, [{ filed: 'createDateTimestamp', sortDesc: 'desc' }])
         const data = rentObj['code'] === 0 && rentObj['data'].length ? rentObj['data'] : []
         const currentDate = Number(moment().format('YYYYMMDD'))
@@ -62,6 +65,9 @@ Page({
         console.log('列表>>>', rentObj, data)
     },
     async getMyFamilyFn() {
+        if (!app.globalData.userInfo) {
+            return
+        }
         const params = {
             createOpenid: app.globalData.openid
         }
@@ -102,13 +108,13 @@ Page({
         if (type === '0') {
             this.resetFormFn(0)
         } else {
+            if (!app.globalData.userInfo) {
+                return utils.showToast('none', '请先授权登录后操作')
+            }
             // 记录邀请码
             console.log('邀请码>>>', this.data.codeObj)
             if (!this.data.codeObj['familyName']) {
-                return this.setData({
-                    isError: true,
-                    errorText: '请选择家庭'
-                })
+                return utils.showToast('none', '请选择家庭')
             }
             let codeObj
             if (this.data.codeObj['isEdit']) {
