@@ -13,7 +13,7 @@
     </view>
     <view class="cu-form-group">
         <view class="title">
-            <text class="text-white mr2">*</text>
+            <text class="text-red mr2">*</text>
             任务简称
         </view>
         <input placeholder="任务简称" value="{{formData['shortName']}}" class="text-r" type="text" disabled="{{isDetail}}" data-type="0" data-obj="formData" data-name="shortName" bindinput="inputFn"></input>
