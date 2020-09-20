@@ -42,9 +42,10 @@ Page({
                 })
             },
         })
+        console.log('>>>>', util.getFamily())
         that.setData({
             isCreate: options['isCreate'] || '1',
-            currentFamilyID: app.globalData.joinFamily['joinFamilyID']
+            currentFamilyID: app.globalData.joinFamily ? app.globalData.joinFamily['joinFamilyID'] : null
         })
         const eventChannel = that.getOpenerEventChannel()
         eventChannel.on('editFn', function (data) {
