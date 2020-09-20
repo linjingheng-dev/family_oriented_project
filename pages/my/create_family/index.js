@@ -159,7 +159,7 @@ Page({
         }
     },
     // 创建家庭后自动加入家庭
-    joinFamilyFn(obj) {
+    async joinFamilyFn(obj) {
         if (!obj['familyId']) {
             return util.showToast('none', '加入家庭失败！')
         }
@@ -174,7 +174,17 @@ Page({
             joinDate: moment().format('YYYY-MM-DD HH:mm:ss'),
             joinTimestamp: moment().valueOf()
         }
-        this.addItem('inviation_user', params, false, '加入家庭')
+        const addObj = await this.addItem('inviation_user', params, true, '加入家庭')
+        if (addObj['code'] !== 0) {
+            return util.showToast('none', '加入创建的家庭失败')
+        }
+        const joinFamilyInfo = wx.getStorageSync('joinFamily')
+        if (!joinFamilyInfo) {
+            wx.setStorage({
+                key: 'joinFamily',
+                data: { joinFamilyID: params['joinFamilyID'], joinFamilyName: params['joinFamilyName'] }
+            })
+        }
     },
     // 编辑家庭名称
     editFamilyFn(obj) {
