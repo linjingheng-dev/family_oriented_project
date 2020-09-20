@@ -29,7 +29,7 @@ Component({
     },
     attached() {
         this.setData({
-            backgroundImg : wx.getStorageSync('backImg') || conf.BACKIMG
+            backgroundImg: wx.getStorageSync('backImg') || conf.BACKIMG
         })
         if (app.globalData.userInfo) {
             console.log('进入1>>')
@@ -191,7 +191,7 @@ Component({
         },
         // 邀请码关联的家庭信息
         async getCodeInfoFn(code) {
-            const codeInfoObj = await this.search('publish/inviteCode', 'invitation_code', {code: code})
+            const codeInfoObj = await this.search('publish/inviteCode', 'invitation_code', { code: code })
             const data = codeInfoObj['code'] === 0 && codeInfoObj['data'].length ? codeInfoObj['data'] : []
             return data.length ? data[0]['familyID'] : null
         },
@@ -220,17 +220,19 @@ Component({
             const params = { code: code }
             const result = await this.search('publish/inviteCode', 'invitation_code', params)
             const data = result['code'] === 0 && result['data'].length && result['data'][0] ? result['data'][0] : null
-            const currentDate = Number(moment().format('YYYYMMDD'))
-            this.setData({
-                ['codeObj.isShowCode']: true,
-                ['codeObj.showCode']: code ? code.replace(/(\d{4})\d{4}\d{4}(\d{1})/g, '$1********$2') : null,
-                ['codeObj.family']: data['familyName'],
-                ['codeObj.familyID']: data['familyID'],
-                ['codeObj.inviterID']: data['createOpenid'],
-                ['codeObj.inviterName']: data['createUser'],
-                ['codeObj.validity']: currentDate - Number(moment(data['createDate'], 'YYYY-MM-DD HH:mm:ss').format('YYYYMMDD')) > 1 ? false :
-                    (code ? true : false)
-            })
+            if (data) {
+                const currentDate = Number(moment().format('YYYYMMDD'))
+                this.setData({
+                    ['codeObj.isShowCode']: true,
+                    ['codeObj.showCode']: code ? code.replace(/(\d{4})\d{4}\d{4}(\d{1})/g, '$1********$2') : null,
+                    ['codeObj.family']: data['familyName'],
+                    ['codeObj.familyID']: data['familyID'],
+                    ['codeObj.inviterID']: data['createOpenid'],
+                    ['codeObj.inviterName']: data['createUser'],
+                    ['codeObj.validity']: currentDate - Number(moment(data['createDate'], 'YYYY-MM-DD HH:mm:ss').format('YYYYMMDD')) > 1 ? false :
+                        (code ? true : false)
+                })
+            }
         },
         // 加入家庭相相关操作
         async addActionFn(e) {
