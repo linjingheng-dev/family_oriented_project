@@ -98,6 +98,8 @@ Page({
             scrollLeft: (id - 1) * 60,
             showList: id === 1 ? this.data.memberList : (id === 2 ? this.data.xmmcList : [])
         })
+        this.projectFormReset()
+        this.memberFormReset()
     },
     // 查询、添加
     projectSubmit(e) {
