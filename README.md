@@ -1,5 +1,8 @@
 # 顾家-一款将分布在五湖四海的家人联系起来，时时刻刻关注大家庭的动态及对大家庭的管理
 
+[![image](https://img.shields.io/badge/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E4%BA%91%E5%BC%80%E5%8F%91-green)](https://developers.weixin.qq.com/miniprogram/dev/framework/quickstart/)
+[![image](https://img.shields.io/badge/%E6%8C%91%E6%88%98%E8%B5%9B-%E4%BA%91%E5%BC%80%E5%8F%91-yellowgreen)](https://v.qq.com/x/page/f3153qfxkjf.html)
+
 项目是微信小程序原生开发，之所以不采用框架进行开发，主要是因为框架在一些方面对小程序的支持不够友好，同时，框架的迭代总是慢于微信小程序官方迭代。除此之外，采用框架进行开发，可能会出现框架停止维护或者迭代缓慢的情况，然而，微信小程序原生开发，可以在性能以及迭代上有所保证。综上所述，最终采用微信小程序原生开发。
 
 [注]：  
