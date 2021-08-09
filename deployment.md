@@ -37,9 +37,7 @@ _ENV: '###'
 
 // [注]可以使用作者提供的环境变量命名：qiucheng-afgeg
 ```
-4.打开微信开发者工具，填写APPID后导入项目  
-<img width=400 height=400 src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/%E5%AF%BC%E9%A1%B9%E7%9B%AE.png?sign=f1c4e4abb062f6e3b2f3f171ad118e23&t=1600499198">  
-<img width=400 height=400 src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/%E5%AF%BC%E5%85%A5%E9%A1%B9%E7%9B%AE1.png?sign=b21641d86c9167bc85d2093591a5e320&t=1600499723">  
+4.打开微信开发者工具，填写APPID后导入项目
 
 ### 二、云数据库搭建
 [注]：可参考[微信官方提供的文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)操作  
