@@ -47,12 +47,12 @@ win10 + git + github + vsCode + 微信小程序开发者工具
 任何以家庭为单元的个体  
 
 ### 四、架构  
-<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/%E6%9E%B6%E6%9E%84%E5%9B%BE1.png?sign=cbec091ed899993e3e0f441e370d7b47&t=1600490058">  
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/%E6%9E%B6%E6%9E%84.png?sign=74cb41bf5c9d6fec4c5774b9f2ab5514&t=1628513944">  
 
 ### 五、主要流程
 用户 -> 创建家庭 -> 分享给其他用户 -> 其他用户加入家庭  
 [注]：创建者和加入者均可操作公示数据  
-<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/auth.png?sign=62b54a09d6cc024ea394be5bb9e0a8c2&t=1600577389">
+<img src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/%E6%B5%81%E7%A8%8B.png?sign=86e4184c862ae4c93d109c95b6b58b07&t=1628513972">
 
 ### 六、效果图
 <img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x1.jpg?sign=ca5fe57c224ea065320ca1762ac5712a&t=1628513509"> <img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x2.jpg?sign=f566f9dcbf01083dec2100808c360dc8&t=1628513529"> <img height="380" width="190" src="https://7169-qiucheng-afgeg-1302850511.tcb.qcloud.la/img/md/x3.jpg?sign=d6bde8af01a731f5625f1ad142263242&t=1628513546">  
